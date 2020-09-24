@@ -1,0 +1,176 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AFLCplusplus",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/bin/AFLCplusplus",
+            "args": [
+                "-i",
+                "input",
+                "-o",
+                "output",
+                "-f",
+                "fuzz_test_input",
+                "./fuzz_test",
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "--so_filename=../../libtldk.so",
+                "./fuzz_test.pkt",
+                "--tolerance_usecs=100000000"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/test/packetdrill",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
+            "name": "packet_to_string_test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/packetdrill/packet_to_string_test",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "fuzz_test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/packetdrill/fuzz_test",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "--tun_id=0",
+                "--so_filename=/home/zyh/Desktop/tldk-2/libtldk.so",
+                "--fuzz_file_name=/home/zyh/Desktop/tldk-2/test/packetdrill/fuzz_test_input_tmp1",
+                "--tolerance_usecs=100000000"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/test/packetdrill",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
+            "name": "packetdrill",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/packetdrill/packetdrill",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "/home/zyh/Desktop/tldk-2/test/packetdrill/tests/tldk/error/error-tldk-timestamp.pkt",
+                "--so_filename=${workspaceFolder}/libtldk.so",
+                "--tolerance_usecs=100000000"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/test/packetdrill",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
+            "name": "pd_notldk",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/packetdrill/packetdrill",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "./tests/tldk/error/error-tldk-test.pkt",
+                "--tolerance_usecs=100000000"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/test/packetdrill",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
+            "name": "pd_ioctl",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/packetdrill/packetdrill",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "./tests/tldk/error/error-tldk-ioctl-return-value.pkt",
+                "--tolerance_usecs=100000000"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/test/packetdrill",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        }
+    ]
+}
