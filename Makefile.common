@@ -1,0 +1,139 @@
+all: binaries
+
+CFLAGS = -g -Wall -O0
+
+parser.o: parser.y
+	bison --output=parser.c --defines=parser.h --report=state parser.y
+	$(CC) $(CFLAGS) -c parser.c
+
+lexer.o: lexer.l parser.o
+	flex -olexer.c lexer.l
+	$(CC)  $(CFLAGS) -O2 -g -Wall -c lexer.c
+
+fuzz_test_remove_duplicate: fuzz_test_remove_duplicate.c
+	gcc fuzz_test_remove_duplicate.c -o fuzz_test_remove_duplicate
+
+packetdrill-lib := \
+         checksum.o code.o config.o hash.o hash_map.o ip_address.o ip_prefix.o \
+         netdev.o net_utils.o \
+         packet.o packet_socket_linux.o packet_socket_pcap.o \
+         packet_checksum.o packet_parser.o packet_to_string.o \
+         symbols_linux.o \
+         symbols_freebsd.o \
+         symbols_openbsd.o \
+         symbols_netbsd.o \
+         gre_packet.o icmp_packet.o ip_packet.o tcp_packet.o udp_packet.o \
+         mpls_packet.o \
+         run.o run_command.o run_packet.o run_system_call.o \
+         script.o socket.o system.o \
+         tcp_options.o tcp_options_iterator.o tcp_options_to_string.o \
+         logging.o types.o lexer.o parser.o \
+         fmemopen.o open_memstream.o \
+         link_layer.o wire_conn.o wire_protocol.o \
+         wire_client.o wire_client_netdev.o \
+         wire_server.o wire_server_netdev.o \
+	 epoll.o pipe.o file.o so_testing.o wrap.o fuzz_test_result.o 
+
+packetdrill-objs := packetdrill.o $(packetdrill-lib)
+
+packetdrill: $(packetdrill-objs)
+	$(CC) -o packetdrill -g $(packetdrill-objs) /bin/lib_exfunc.o $(packetdrill-ext-libs) 
+
+packetdrill_asan: $(packetdrill-objs)
+	clang-9 -g -fsanitize=address $(packetdrill-lib) packetdrill.o \
+        $(TLDK_ROOT)/libtldk.so \
+        /bin/lib_exfunc.o \
+            -o packetdrill -lpthread -lpcap
+
+packetdrill_old: $(packetdrill-objs)
+	clang-9 -g $(packetdrill-lib) packetdrill.o \
+        ../../../tldk-old/libtldk.so \
+        /bin/lib_exfunc.o \
+            -o packetdrill_old -lpthread -lpcap
+
+# test-bins := checksum_test packet_parser_test packet_to_string_test fuzz_test
+# tests: $(test-bins)
+	# ./checksum_test
+	# ./packet_parser_test
+	# ./packet_to_string_test
+	# ./fuzz_test
+
+binaries: packetdrill fuzz_test fuzz_test_remove_duplicate
+
+checksum_test-objs := $(packetdrill-lib) checksum_test.o
+checksum_test: $(checksum_test-objs)
+	$(CC) -o checksum_test $(checksum_test-objs) $(packetdrill-ext-libs)
+
+packet_parser_test-objs := $(packetdrill-lib) packet_parser_test.o
+packet_parser_test: $(packet_parser_test-objs)
+	$(CC) -o packet_parser_test $(packet_parser_test-objs) \
+                $(packetdrill-ext-libs)
+
+fuzz_test-objs := fuzz_test_syscall.o fuzz_test_helper.o fuzz_test_script.o fuzz_test_packet.o fuzz_test.o $(packetdrill-lib)
+
+fuzz_test: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
+	clang-9 -o fuzz_test -g $(fuzz_test-objs) \
+            /bin/lib_exfunc.o \
+            $(packetdrill-ext-libs)
+
+fuzz_test_debug: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g -DDEBUG_FUZZ_LOGGING=1 $(fuzz_test-objs) \
+        $(TLDK_ROOT)/libtldk.so \
+            /bin/lib_exfunc.o \
+            -o fuzz_test -pthread -lpcap
+
+fuzz_test_oldcov: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g $(fuzz_test-objs) \
+        $(TLDK_ROOT)/libtldk.so \
+            /bin/lib_exfunc_oldcov.o \
+            -o fuzz_test -pthread -lpcap
+
+fuzz_test_oldtldk: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g $(fuzz_test-objs) \
+        ../../../tldk-old/libtldk.so \
+            /bin/lib_exfunc.o \
+            -o fuzz_test -pthread -lpcap
+
+fuzz_test_oldcov_oldtldk: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g $(fuzz_test-objs) \
+        ../../../tldk-old/libtldk.so \
+            /bin/lib_exfunc_oldcov.o \
+            -o fuzz_test -pthread -lpcap
+
+fuzz_test_gcc: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	$(CC) $(fuzz_test-objs) \
+        $(TLDK_ROOT)/libtldk.so \
+        /bin/lib_exfunc.o \
+            -o fuzz_test -lpthread -lpcap
+
+fuzz_test_asan: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g -fsanitize=address $(fuzz_test-objs) \
+        $(TLDK_ROOT)/libtldk.so \
+        /bin/lib_exfunc.o \
+            -o fuzz_test -lpthread -lpcap
+
+fuzz_test_ubsan: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang-9 -g -fsanitize=undefined $(fuzz_test-objs) \
+        $(TLDK_ROOT)/libtldk.so \
+        /bin/lib_exfunc.o \
+            -o fuzz_test -lpthread -lpcap
+
+fuzz_test_normal: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	$(CC) -o fuzz_test $(fuzz_test-objs) $(packetdrill-ext-libs)
+
+packet_to_string_test-objs := $(packetdrill-lib) packet_to_string_test.o
+packet_to_string_test: $(packet_to_string_test-objs)
+	$(CC) -o packet_to_string_test $(packet_to_string_test-objs) \
+                $(packetdrill-ext-libs)
+
+clean:
+	/bin/rm -f *.o *.ll packetdrill fuzz_test lexer.c parser.c parser.h parser.output \
+    fuzz_test_remove_duplicate

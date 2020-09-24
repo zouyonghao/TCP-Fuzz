@@ -1,0 +1,151 @@
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3180
+1
+  store %struct.tle_stream* null, %struct.tle_stream** %426, align 8, !dbg !1538
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->check_event_time->die->glue_uninit->be_process->be_tx->tle_tcp_process->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3180
+1
+  store %struct.tle_stream* null, %struct.tle_stream** %426, align 8, !dbg !1538
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3180
+1
+  store %struct.tle_stream* null, %struct.tle_stream** %426, align 8, !dbg !1538
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->check_event_time->die->glue_uninit->be_process->be_tx->tle_tcp_process->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3174
+0
+  %392 = load %struct.tle_stream*, %struct.tle_stream** %390, align 8, !dbg !1511
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3180
+1
+  store %struct.tle_stream** %431, %struct.tle_stream*** %435, align 8, !dbg !1538
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->check_event_time->die->glue_uninit->be_process->be_tx->tle_tcp_process->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_l4p/tcp_rxtx.c; 3180
+1
+  store %struct.tle_stream** %431, %struct.tle_stream*** %435, align 8, !dbg !1538
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 100
+1
+  store i32 %84, i32* %81, align 8, !dbg !96
+main->my_run_script->run_system_call_event->invoke_system_call->syscall_accept->pd_accept->tle_accept->tcp_accept->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 100
+1
+  store i32 %84, i32* %81, align 8, !dbg !96
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 100
+1
+  store i32 %84, i32* %81, align 8, !dbg !96
+main->my_run_script->run_system_call_event->invoke_system_call->syscall_accept->pd_accept->tle_accept->tcp_accept->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 100
+0
+  %83 = load i32, i32* %81, align 8, !dbg !96
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 100
+1
+  store i32 %84, i32* %81, align 8, !dbg !96
+main->my_run_script->run_system_call_event->invoke_system_call->syscall_accept->pd_accept->tle_accept->tcp_accept->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 92
+0
+  %19 = load i32, i32* %17, align 8, !dbg !61
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->get_timers->
+0
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 126
+1
+  store i32 %79, i32* %76, align 8, !dbg !83
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->put_timers->
+0
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 126
+1
+  store i32 %79, i32* %76, align 8, !dbg !83
+main->my_run_script->run_system_call_event->invoke_system_call->syscall_accept->pd_accept->tle_accept->tcp_accept->epoll_kernel_wait->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->put_timers->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 126
+1
+  store i32 %79, i32* %76, align 8, !dbg !83
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->put_timers->
+0
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 126
+0
+  %78 = load i32, i32* %76, align 8, !dbg !83
+main->my_run_script->run_system_call_event->invoke_system_call->syscall_accept->pd_accept->tle_accept->tcp_accept->epoll_kernel_wait->be_process->be_tx->tle_tcp_process->tle_timer_get_expired_bulk->put_timers->
+3
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->run_local_packet_event->run_packet_event->wait_for_event->run_lock->
+
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 315
+1
+  store i64 %58, i64* %61, align 8, !dbg !130
+glue_uninit->be_process->be_tx->tle_tcp_process->tle_timer_expire->
+2
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+pthread_mutex_lock
+main->my_run_script->so_instance_init->packetdrill_interface_init->
+/home/bugscan/Desktop/tldk-2/lib/libtle_timer/timer.c; 306
+0
+  %21 = load i64, i64* %19, align 8, !dbg !104
+io->tle_epoll_wait->poll_common->be_process->be_tx->tle_tcp_process->tle_timer_expire->
+0
+

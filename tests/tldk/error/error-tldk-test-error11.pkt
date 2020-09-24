@@ -1,0 +1,18 @@
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792
++0  accept(3, ..., ...) = 4
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:5962(5961) ack 1 win 14649 <eol,eol,eol,eol>
++0 < R. 10000:15000(5000) ack 1 win 49087 <eol,eol,eol,eol>
++0 < . 5962:10000(4038) ack 1 win 14649 <eol,eol,eol,eol>
++0.1 read(4, ..., 10000) =  9999

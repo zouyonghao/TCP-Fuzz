@@ -1,0 +1,68 @@
+// ioctl error
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792
++0.1  accept(3, ..., ...) = 4
+
++0 < . 1:21(20) ack 1 win 30569 
++0.1 ioctl(4, SIOCINQ, [20]) = 0
++0 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 < . 21:41(20) ack 1 win 25454 
++0 ioctl(4, SIOCINQ, [40]) = 0
++0 fcntl(3, F_GETFL) = 0x802 (flags O_RDWR)
++0 < . 41:61(20) ack 1 win 28278 
++0.1 read(4, ..., 113) =  60
++0 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 61:81(20) ack 1 win 14643 
++0.1 read(4, ..., 103) =  20
++0 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 81:101(20) ack 1 win 30062 
++0.1 read(4, ..., 51) =  20
++0 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 101:121(20) ack 1 win 30565 
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 121:141(20) ack 1 win 13410 
++0.1 read(4, ..., 102) =  40
++0 write(4, ..., 106) =  106
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 141:161(20) ack 1 win 12650 
++0.1 read(4, ..., 99) =  20
++0 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 161:181(20) ack 1 win 30330 
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 fcntl(3, F_SETFL, O_RDWR) = 0
++0 < . 181:201(20) ack 1 win 12333 
++0 write(4, ..., 119) =  119
++0 ioctl(4, SIOCINQ, [40]) = 0
++0 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 < . 201:221(20) ack 1 win 12593 
++0 < . 201:221(20) ack 1 win 12593 
++0.1 read(4, ..., 20) =  20
++0 < . 221:241(20) ack 1 win 12593 
++0 < . 221:241(20) ack 1 win 12593 
++0.1 read(4, ..., 20) =  20
++0 < . 241:261(20) ack 1 win 12593 
++0 < . 241:261(20) ack 1 win 12593 
++0.1 read(4, ..., 20) =  20

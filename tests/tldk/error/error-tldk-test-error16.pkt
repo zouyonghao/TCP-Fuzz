@@ -1,0 +1,15 @@
+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+0.000 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
+0.000 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
+// Establish connection and verify that there was no error.
+0.100 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
+0.100 > S 0:0(0) <...>
+0.200 < S. 0:0(0) ack 1 win 5792 <nop,wscale 7>
+0.200 > . 1:1(0) ack 1
+0.200 getsockopt(3, SOL_SOCKET, SO_ERROR, [0], [4]) = 0
+0.200 fcntl(3, F_SETFL, O_RDWR) = 0   // set back to blocking
+
+// Send the HTTP request.
+0.200 write(3, ..., 57) = 57
+0.200 > . 1:58(57) ack 1 

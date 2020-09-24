@@ -1,0 +1,50 @@
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792
++0  accept(3, ..., ...) = 4
+// +0 < S. 0:0(0) ack 1 
+// +0 < . 1:1(0) ack 1 win 32792 
+// +0 < . 1:21(20) ack 1 win 14711 
+// unexpected TCP option kind: 113
++0 < . 1:21(20) ack 1 win 29029 
+// unexpected TCP option kind: 118
++0 < . 1:21(20) ack 1 win 27233 
+// unexpected TCP option kind: 100
++0 < . 1:21(20) ack 1 win 30049 
+// bad TCP option length: was 112 but expected 3
++0 < . 1:21(20) ack 1 win 29738 
+// unexpected TCP option kind: 47
++0 write(4, ..., 57) =  57
+
++0 < . 21:41(20) ack 1 win 26676 
+// TCP SACK option not a multiple of SACK block size
+// set ip checksum to 0x0000
+// set tcp ack seq to 0x30000000
++0 < . 21:41(20) ack 48 win 13361 
+// unexpected TCP option kind: 102
++0.1 read(4, ..., 255) =  40
++0 write(4, ..., 51) =  51
+
++0 < . 41:61(20) ack 1 win 25143 
+// unexpected TCP option kind: 122
+// set ip ihl to 0x0a
+// set tcp seq to 0x1000000
++0 < . 1026621491:1026621511(20) ack 1 win 26217 
+// unexpected TCP option kind: 45
++0 write(4, ..., 105) =  105
+
++0 < . 61:81(20) ack 1 win 25961 
+// unexpected TCP option kind: 118
+// set ip frag_off to 0x6a75
+// set tcp ack seq to 0x67003010
++0 < . 61:81(20) ack 271581287 win 11633 
+// unexpected TCP option kind: 57
++0.1 ioctl(4, SIOCINQ, [40]) = 0
