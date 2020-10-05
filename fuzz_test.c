@@ -84,6 +84,9 @@ void do_some_fuzz(int fuzz_loop) {
 
 		if (!config.is_no_fuzz_syscall) {
 			for (int j = 0; j < sizeof(predefined_syscall_events) / sizeof(struct predefined_syscall_event); j++) {
+				if (predefined_syscall_events[j].e == NULL) {
+					continue;
+				}
 				DEBUGP("fuzz_file_index: %d\n", fuzz_file_index);
 				u8 tmp = read_byte();
 				if (tmp % 100 < 50) {
@@ -381,8 +384,9 @@ void inject_fuzz_error_packet() {
 
 	inject_error_to_packet(event->event.packet);
 
-	run_local_packet_event(state, event, event->event.packet);
+	print_packet(event->event.packet);
 	add_packet_to_fuzz_script(event->event.packet);
+	run_local_packet_event(state, event, event->event.packet);
 	state->num_events++;
 }
 
@@ -440,13 +444,13 @@ int main(int argc, char *argv[]) {
 	strcpy(config.live_remote_ip_string, "192.0.2.1");
 	finalize_config(&config);
 
-	set_scheduling_priority();
+	// set_scheduling_priority();
 	script_path = config.script_path;
 	struct netdev *nd = so_netdev_new(&config);
 	state = state_new(&config, &script, nd);
 	state->so_instance = so_instance_new();
 	so_instance_init(state->so_instance, &config, &script, state);
-	signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
+	// signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
 	state->live_start_time_usecs = schedule_start_time_usecs(state);
 
 	my_run_script();

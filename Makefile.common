@@ -41,7 +41,6 @@ packetdrill: $(packetdrill-objs)
 
 packetdrill_asan: $(packetdrill-objs)
 	clang-9 -g -fsanitize=address $(packetdrill-lib) packetdrill.o \
-        $(TLDK_ROOT)/libtldk.so \
         /bin/lib_exfunc.o \
             -o packetdrill -lpthread -lpcap
 

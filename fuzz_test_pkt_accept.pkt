@@ -11,7 +11,7 @@
 +0 ~ +1  > S. 0:0(0) ack 1 <...>
 
 +.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
-+0 accept(3, ..., ...) = 4
++0.2 accept(3, ..., ...) = 4
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 
 
@@ -33,7 +33,7 @@
 
 +0.1 ioctl(4, SIOCINQ, [0]) = 0
 
-+0 fcntl(4, F_GETFL) = 2050
+// +0 fcntl(4, F_GETFL) = 2050
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 +0 fcntl(4, F_SETFL, O_RDWR) = 0   // set back to blocking
 
