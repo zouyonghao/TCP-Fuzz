@@ -36,6 +36,7 @@
 #include <sys/uio.h>
 #include <sys/epoll.h>
 #include <unistd.h>
+#include "types.h"
 
 struct packetdrill_interface {
 	void *userdata;
@@ -105,4 +106,5 @@ struct packetdrill_interface {
 typedef void (*packetdrill_interface_init_t)(const char *flags,
 					     struct packetdrill_interface *);
 
+extern bool packetdrill;
 #endif /* __PACKETDRILL_H__ */

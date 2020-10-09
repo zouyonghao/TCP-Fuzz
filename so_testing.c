@@ -98,9 +98,12 @@ static int so_netdev_receive(struct netdev *a_netdev, struct packet **packet,
 next:
 		packet_free(*packet);
 		*packet = NULL;
+		if (!packetdrill) {
+			break;
+		}
 	}
 
-	assert(!"should not be reached");
+	// assert(!"should not be reached");
 	return STATUS_ERR;	/* not reached */
 }
 

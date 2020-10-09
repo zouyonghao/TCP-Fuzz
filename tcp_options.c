@@ -63,7 +63,7 @@ int num_sack_blocks(u8 opt_len, int *num_blocks, char **error)
 	if (num_bytes % sizeof(struct sack_block) != 0) {
 		asprintf(error,
 			 "TCP SACK option not a multiple of SACK block size");
-		return STATUS_ERR;
+		// return STATUS_ERR;
 	}
 	*num_blocks = num_bytes / sizeof(struct sack_block);
 	return STATUS_OK;

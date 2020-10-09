@@ -38,4 +38,6 @@ void start_validate_outbound_thread(struct packet *packet);
 
 void stop_validate_outbound_thread();
 
+void set_max_times_and_set_running(int t);
+
 #endif

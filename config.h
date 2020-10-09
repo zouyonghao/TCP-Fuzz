@@ -169,6 +169,8 @@ struct config {
 	/* for fuzz option */
 	bool is_no_fuzz_syscall;
 	bool is_no_fuzz_packet;
+
+	bool is_no_fuzz_receive_packets_in_background;
 };
 
 /* Top-level info about the invocation of a test script */

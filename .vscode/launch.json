@@ -68,6 +68,7 @@
                 "--tun_id=5",
                 "--so_filename=1",
                 "--fuzz_file_name=./fuzz_test_input",
+                "--no_fuzz_receive_packets_in_background",
                 "--tolerance_usecs=100000000"
             ],
             "stopAtEntry": false,

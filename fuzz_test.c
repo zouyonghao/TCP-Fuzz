@@ -167,7 +167,9 @@ void my_run_script() {
 
 		if (event->line_number == outbound_event_line_number) {
 			outbound_event = event;
-			start_validate_outbound_thread(outbound_event->event.packet);
+			if (!config.is_no_fuzz_receive_packets_in_background) {
+				start_validate_outbound_thread(outbound_event->event.packet);
+			}
 			continue;
 		}
 
@@ -261,8 +263,13 @@ void my_run_script() {
 	}
 
 	// sleep a while to receive more packets
-	usleep(100000);
-	stop_validate_outbound_thread();
+	if (!config.is_no_fuzz_receive_packets_in_background) {
+		usleep(100000);
+		stop_validate_outbound_thread();
+	} else {
+		set_max_times_and_set_running(20);
+		validate_outbound_packet(outbound_event->event.packet);
+	}
 
 	DEBUG_FUZZP("===========close syscall=========\n");
 	update_state_and_event(syscall_close_event);
@@ -467,6 +474,8 @@ int main(int argc, char *argv[]) {
 	// 2. run without tldk
 	strcpy(config.live_local_ip_string, real_local_ip);
 	strcpy(config.live_remote_ip_string, real_remote_ip);
+	// Always use background thread to receive when it is Linux.
+	config.is_no_fuzz_receive_packets_in_background = false;
 	finalize_config(&config);
 	netdev = local_netdev_new(&config);
 	state = state_new(&config, &script, netdev);
