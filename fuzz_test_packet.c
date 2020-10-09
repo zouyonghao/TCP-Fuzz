@@ -254,17 +254,29 @@ struct packet *fuzz_to_packet(bool is_fuzz_options,
 	return packet;
 }
 
+static int max_times = -1;
+
+void set_max_times_and_set_running(int t) {
+	is_validate_outbound_running = true;
+	max_times = t;
+}
+
 void *validate_outbound_packet(void *p) {
 	struct packet *packet = (struct packet *) p;
 	DEBUG_FUZZP("validate_outbound_packet\n");
-	while (is_validate_outbound_running) {
+	int times = 0;
+	while (is_validate_outbound_running &&
+		   (max_times < 0 || times++ < max_times)) {
 		struct packet *live_packet = NULL;
 		char *error = NULL;
 		int live_payload_len = 0;
 		struct socket *socket = NULL;
 
 		find_or_create_socket_for_script_packet(state, packet, packet->direction, &socket, &error);
-		sniff_outbound_live_packet(state, socket, &live_packet, &error);
+		int result = sniff_outbound_live_packet(state, socket, &live_packet, &error);
+		if (result == STATUS_ERR) {
+			continue;
+		}
 
 		if (live_packet->tcp) {
 			socket->last_outbound_tcp_header = *(live_packet->tcp);

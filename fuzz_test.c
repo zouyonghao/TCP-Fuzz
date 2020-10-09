@@ -84,6 +84,9 @@ void do_some_fuzz(int fuzz_loop) {
 
 		if (!config.is_no_fuzz_syscall) {
 			for (int j = 0; j < sizeof(predefined_syscall_events) / sizeof(struct predefined_syscall_event); j++) {
+				if (predefined_syscall_events[j].e == NULL) {
+					continue;
+				}
 				DEBUGP("fuzz_file_index: %d\n", fuzz_file_index);
 				u8 tmp = read_byte();
 				if (tmp % 100 < 50) {
@@ -164,7 +167,9 @@ void my_run_script() {
 
 		if (event->line_number == outbound_event_line_number) {
 			outbound_event = event;
-			start_validate_outbound_thread(outbound_event->event.packet);
+			if (!config.is_no_fuzz_receive_packets_in_background) {
+				start_validate_outbound_thread(outbound_event->event.packet);
+			}
 			continue;
 		}
 
@@ -258,8 +263,13 @@ void my_run_script() {
 	}
 
 	// sleep a while to receive more packets
-	usleep(100000);
-	stop_validate_outbound_thread();
+	if (!config.is_no_fuzz_receive_packets_in_background) {
+		usleep(100000);
+		stop_validate_outbound_thread();
+	} else {
+		set_max_times_and_set_running(20);
+		validate_outbound_packet(outbound_event->event.packet);
+	}
 
 	DEBUG_FUZZP("===========close syscall=========\n");
 	update_state_and_event(syscall_close_event);
@@ -381,8 +391,9 @@ void inject_fuzz_error_packet() {
 
 	inject_error_to_packet(event->event.packet);
 
-	run_local_packet_event(state, event, event->event.packet);
+	print_packet(event->event.packet);
 	add_packet_to_fuzz_script(event->event.packet);
+	run_local_packet_event(state, event, event->event.packet);
 	state->num_events++;
 }
 
@@ -440,13 +451,13 @@ int main(int argc, char *argv[]) {
 	strcpy(config.live_remote_ip_string, "192.0.2.1");
 	finalize_config(&config);
 
-	set_scheduling_priority();
+	// set_scheduling_priority();
 	script_path = config.script_path;
 	struct netdev *nd = so_netdev_new(&config);
 	state = state_new(&config, &script, nd);
 	state->so_instance = so_instance_new();
 	so_instance_init(state->so_instance, &config, &script, state);
-	signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
+	// signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
 	state->live_start_time_usecs = schedule_start_time_usecs(state);
 
 	my_run_script();
@@ -463,6 +474,8 @@ int main(int argc, char *argv[]) {
 	// 2. run without tldk
 	strcpy(config.live_local_ip_string, real_local_ip);
 	strcpy(config.live_remote_ip_string, real_remote_ip);
+	// Always use background thread to receive when it is Linux.
+	config.is_no_fuzz_receive_packets_in_background = false;
 	finalize_config(&config);
 	netdev = local_netdev_new(&config);
 	state = state_new(&config, &script, netdev);

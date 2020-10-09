@@ -61,17 +61,18 @@
             "name": "fuzz_test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/test/packetdrill/fuzz_test",
+            "program": "${workspaceFolder}/fuzz_test",
             "args": [
                 "--local_ip=192.168.0.2",
                 "--remote_ip=192.0.0.2",
-                "--tun_id=0",
-                "--so_filename=/home/zyh/Desktop/tldk-2/libtldk.so",
-                "--fuzz_file_name=/home/zyh/Desktop/tldk-2/test/packetdrill/fuzz_test_input_tmp1",
+                "--tun_id=5",
+                "--so_filename=1",
+                "--fuzz_file_name=./fuzz_test_input",
+                "--no_fuzz_receive_packets_in_background",
                 "--tolerance_usecs=100000000"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/test/packetdrill",
+            "cwd": "${workspaceFolder}",
             "environment": [
                 // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
             ],
@@ -91,16 +92,16 @@
             "name": "packetdrill",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/test/packetdrill/packetdrill",
+            "program": "${workspaceFolder}/packetdrill",
             "args": [
-                "--local_ip=192.168.0.2",
-                "--remote_ip=192.0.0.2",
-                "/home/zyh/Desktop/tldk-2/test/packetdrill/tests/tldk/error/error-tldk-timestamp.pkt",
-                "--so_filename=${workspaceFolder}/libtldk.so",
+                "--local_ip=10.0.1.2",
+                "--remote_ip=10.0.2.1",
+                "/home/zyh/Desktop/tldk-2/test/packetdrill/tests/linux/blocking/blocking-read.pkt",
+                // "--so_filename=${workspaceFolder}/libtldk.so",
                 "--tolerance_usecs=100000000"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/test/packetdrill",
+            "cwd": "${workspaceFolder}",
             "environment": [
                 // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
             ],

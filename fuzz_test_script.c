@@ -25,7 +25,6 @@ void add_char_to_fuzz_script(char content) {
 }
 
 void add_content_to_fuzz_script(char *content) {
-	DEBUG_FUZZP("%s", content);
 	for (int i = 0; i < strlen(content); i++) {
 		fuzz_script[fuzz_script_index] = content[i];
 		fuzz_script_index++;
@@ -48,7 +47,8 @@ void add_packet_to_fuzz_script(struct packet *p) {
 	add_content_to_fuzz_script(dump);
 	fuzz_script[fuzz_script_index] = '\n';
 	fuzz_script_index++;
-
+	DEBUG_FUZZP("dump is %s \n", dump);
+	DEBUG_FUZZP("error is %s \n", error);
 	free(dump);
 	free(error);
 }
@@ -58,7 +58,7 @@ void update_fuzz_scripts() {
 		return;
 	}
 	fuzz_script[fuzz_script_index] = '\0';
-	DEBUG_FUZZP("%s\n", fuzz_script);
+	DEBUG_FUZZP("fuzz_script is %s\n", fuzz_script);
 	fuzz_scripts[fuzz_loop_index] = strdup(fuzz_script);
 	fuzz_script_index = 0;
 	fuzz_loop_index++;

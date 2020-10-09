@@ -70,7 +70,8 @@ enum option_codes {
 	OPT_FUZZ_FILE_NAME,
 	OPT_TUN_ID,
 	OPT_NO_FUZZ_SYSCALL,
-	OPT_NO_FUZZ_PACKET
+	OPT_NO_FUZZ_PACKET,
+	OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND
 };
 
 /* Specification of command line options for getopt_long(). */
@@ -111,6 +112,7 @@ struct option options[] = {
 	{ "tun_id",	.has_arg = true,  NULL, OPT_TUN_ID },
 	{ "no_fuzz_syscall",	.has_arg = false,  NULL, OPT_NO_FUZZ_SYSCALL },
 	{ "no_fuzz_packet",	.has_arg = false,  NULL, OPT_NO_FUZZ_PACKET },
+	{ "no_fuzz_receive_packets_in_background",	.has_arg = false,  NULL, OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND },
 	{ NULL },
 };
 
@@ -260,6 +262,7 @@ void set_default_config(struct config *config)
 	config->tun_id = 0;
 	config->is_no_fuzz_syscall = false;
 	config->is_no_fuzz_packet = false;
+	config->is_no_fuzz_receive_packets_in_background = false;
 }
 
 static void set_remote_ip_and_prefix(struct config *config)
@@ -537,7 +540,10 @@ static void process_option(int opt, char *optarg, struct config *config,
 		break;
 	case OPT_NO_FUZZ_PACKET:
 		config->is_no_fuzz_packet = true;
-		break;	
+		break;
+	case OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND:
+		config->is_no_fuzz_receive_packets_in_background = true;
+		break;
 	default:
 		show_usage();
 		exit(EXIT_FAILURE);

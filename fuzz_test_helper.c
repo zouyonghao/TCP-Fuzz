@@ -8,6 +8,11 @@ unsigned long fuzz_file_length;
 char *fuzz_file_string;
 char *fuzz_file_name = "fuzz_test_input";
 
+/**
+ * fuzz loop related
+ */
+int fuzz_loop_index = 0;
+
 u8 *push_data(u8 **data, u8 value, int *size, int *capacity) {
 	if (*size >= *capacity) {
 		(*data) = (u8 *) realloc(*data, (*capacity) * 2 * sizeof(u8));
@@ -57,11 +62,6 @@ void file_to_string(const char *filename) {
 		exit(0);
 	}
 }
-
-/**
- * fuzz loop related
- */
-int fuzz_loop_index = 0;
 
 /**
  * @return index of the first different character, -1 for equal string
