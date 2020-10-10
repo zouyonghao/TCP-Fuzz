@@ -1,0 +1,13 @@
+// ioctl error
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0.1 ioctl(3, SIOCINQ, [0]) = 0
+
++0  bind(3, ..., ...) = 0
++0.1 ioctl(3, SIOCINQ, [0]) = 0
+
++0  listen(3, 1) = 0
+
++0.1 ioctl(3, SIOCINQ, [0]) = -1

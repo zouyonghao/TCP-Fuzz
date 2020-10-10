@@ -9,7 +9,7 @@
 0.000 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 
 // Establish connection and verify that there was no error.
-0.100 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
+0.100 connect(3, ..., ...) = -1
 0.100 > S 0:0(0) <mss 1460,TS val 100 ecr 0,wscale 10,nop,nop,nop>
 0.200 < S. 0:0(0) ack 1 win 5792 <mss 1460,sackOK,TS val 0 ecr 100,nop,wscale 7>
 0.200 > . 1:1(0) ack 1
