@@ -33,7 +33,7 @@
 
 +0.1 ioctl(4, SIOCINQ, [0]) = 0
 
-+0 fcntl(4, F_GETFL) = 2050
+// +0 fcntl(4, F_GETFL) = 2050
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 +0 fcntl(4, F_SETFL, O_RDWR) = 0   // set back to blocking
 

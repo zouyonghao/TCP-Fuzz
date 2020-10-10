@@ -1,0 +1,30 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0  socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 bind(3, ..., ...) = 0
++0 listen(3, 1) = 0
+
++0 < S 0:0(0) win 12336 <TS val 100 ecr 0,eol,mss 14705,eol>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,nop,wscale 7, nop, nop>
++0.2 accept(3, ..., ...) = 4
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:2443(2442) ack 1 win 28531 <nop,eol,eol,eol>
+
++0 < . 1:8226(8225) ack 1 win 28770 
+
++0 < . 8226:18146(9920) ack 813039726 win 65322 
++0.1 read(4, ..., 20000) =  8225
+
++0 < . 8226:15435(7209) ack 1 win 30330 <nop,eol,eol,eol>
+
++0 < . 15435:21596(6161) ack 1898971239 win 26981 
+
++0 < . 15435:18737(3302) ack 1 win 30070 <eol,nop,eol,eol>
+
++0.1 read(4, ..., 20000) =  10511
