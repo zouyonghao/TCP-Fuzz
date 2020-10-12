@@ -1,0 +1,54 @@
+// DO NOT delete or add line in this file
+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
+0.000 fcntl(3, F_GETFL) = 0x2 (flags O_RDWR)
+0.000 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
+// Establish connection and verify that there was no error.
++0 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
+0.100 > S 0:0(0) <...>
+
++0.1 < S. 0:0(0) ack 1 win 5792 <mss 1460,sackOK,TS val 100 ecr 0,nop,wscale 7>
++0.1 > . 1:1(0) ack 1 <...>
+
+
++0 < . 1:9866(9865) ack 1 win 30265 <eol,TS val 1986949481 ecr 1718247791,eol>
++0 > . 1:1(0) ack 9866 <nop,nop,TS val 1092543114 ecr 100>
+
++0 < . 9866:10404(538) ack 1 win 30049 
++0 > . 1:1(0) ack 10404 <nop,nop,TS val 1092543138 ecr 100>
+
+
++0 < . 9866:10875(1009) ack 1 win 28979 
++0 > . 1:1(0) ack 10875 <...>
+
++0 < . 10875:17937(7062) ack 1 win 28217 
++0 > . 1:1(0) ack 17937 <...>
+
++0 < . 17937:27009(9072) ack 1848836152 win 13155 
+
+
++0 < . 17937:18162(225) ack 1 win 28211 <TS val 863073646 ecr 1982886195,eol,eol>
++0 > . 1:1(0) ack 18162 <...>
+
++0 < . 18162:19543(1381) ack 875757681 win 28278 
+
++0 < . 18162:27020(8858) ack 1 win 14132 <sackOK,nop,eol>
++0 > . 1:1(0) ack 27020 <...>
+
++0 < . 859635761:859636770(1009) ack 1 win 26990 
++0 > . 1:1(0) ack 27020 <...>
+
+
++0 < . 27020:35878(8858) ack 1 win 30263 
++0 > . 1:1(0) ack 35878 <...>
+
++0 < . 859635761:859636770(1009) ack 1 win 26990 
++0 > . 1:1(0) ack 35878 <...>
+
+// +0 < . 35878:40892(5014) ack 1 win 11633 <TS val 862877046 ecr 762393455,eol,wscale 118, nop, nop>
+// +0 < . 35878:40892(5014) ack 1 win 11633 <TS val 892626794 ecr 1848651057,eol,wscale 118, nop, nop>
++0 < . 35878:40892(5014) ack 1 win 11633 <TS val 892626794 ecr 1848651057,TS val 862877046 ecr 762393455,eol,wscale 118>
++0 > . 1:1(0) ack 35878 <...>
+
++0 close(3) = 0
++0~+1 > R. 1:1(0) ack 35878 <...>

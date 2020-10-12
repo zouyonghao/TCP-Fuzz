@@ -1,6 +1,6 @@
 1. 阻塞时read 0无法返回 - 2
     error-tldk-tcp-read0.pkt
-    新版本修复
+    已修复
 
 2. 返回的包缺少PUSH标志 - 3
     error-tldk-read-return-value2.pkt
@@ -36,12 +36,12 @@
 
 10. 发送Fin包后write 0 返回值错误 - 3
     error-tldk-write-return-value2.pkt
-    新版本修复
+    已修复
 
 11. RST包序号问题导致write错误 - 3
     [RFC 5691](https://tools.ietf.org/html/rfc5961https://tools.ietf.org/html/rfc5961)
     error-tldk-test-error11.pkt
-    新版本修复
+    已修复
 
 12. ACK包序号问题导致ioctl结果不同 [RFC 5691] - 3
     error-tldk-test-error12.pkt
@@ -53,9 +53,9 @@
 
 14. 带内容syn包 - 2
     error-tldk-test-error14.pkt
-    已修复，需要确认
+    已修复
 
-15. syn ack 包的ecr不为0仍能接受连接, Linux发送RST报文
+15. syn ack 包的ecr不为0仍能接受连接, Linux发送RST报文 - 3
     error-tldk-test-error15.pkt
     需要看标准判断是否修复
 
@@ -73,4 +73,5 @@
     error-tldk-test-error19.pkt
     已知问题，未修复，可能短期不修复
 
-20. 
+20. 如果包中含有两个timestamp选项，结果与Linux不同 - 3
+    error-tldk-test-error20.pkt
