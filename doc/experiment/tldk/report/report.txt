@@ -1,0 +1,76 @@
+1. 阻塞时read 0无法返回 - 2
+    error-tldk-tcp-read0.pkt
+    新版本修复
+
+2. 返回的包缺少PUSH标志 - 3
+    error-tldk-read-return-value2.pkt
+    已知问题，未修复，可能短期不修复
+
+3. ioctl 有时返回的值少1 - 2
+    error-tldk-read-return-value-delay.pkt ioctl-siocinq-fin.pkt
+    fix patch: fix_ioctl.patch
+
+4. ioctl 在listen之后使用socket返回的文件描述符,返回值应为-1, 而tldk为0. - 3
+    error-tldk-ioctl-return-value.pkt
+    fix patch: fix_ioctl2.patch
+
+5. ip版本号改为3, tldk仍正常工作 - 2
+    packetdrill patch: change_ipversion.patch
+    fix patch: check_ip.patch
+
+6. tcp data offset错误导致read结果错误 - 2
+    packetdrill patch: change_tcp_doff.patch
+    fix patch: check_tcp.patch
+
+7. 两个FIN包导致write错误 - 1
+    error-tldk-write-return-value.pkt
+    fix patch: 0004-tcp-drop-data-after-fin-and-return-EPIPE.patch 0005-tcp-handle-fin-pkt-with-duplicate-data-payload-corre.patch
+
+8. 错误ack序号导致ioctl参数值错误 - 3
+    error-tldk-ioctl-param-value2.pkt
+    fix patch: 0002-l4p-tcp-ignore-but-not-drop-unacceptable-ACK
+
+9. 包长度导致read错误 (DPDK bug) - 1
+    error-tldk-read-return-value4.pkt
+    fix patch: dpdk/dpdk-v18.11_patches/fix_seq.patch
+
+10. 发送Fin包后write 0 返回值错误 - 3
+    error-tldk-write-return-value2.pkt
+    新版本修复
+
+11. RST包序号问题导致write错误 - 3
+    [RFC 5691](https://tools.ietf.org/html/rfc5961https://tools.ietf.org/html/rfc5961)
+    error-tldk-test-error11.pkt
+    新版本修复
+
+12. ACK包序号问题导致ioctl结果不同 [RFC 5691] - 3
+    error-tldk-test-error12.pkt
+    已修复
+
+13. Timestamp ecr 错误, tldk的ecr一直不变 - 3
+    error-tldk-test-error13.pkt
+    已修复
+
+14. 带内容syn包 - 2
+    error-tldk-test-error14.pkt
+    已修复，需要确认
+
+15. syn ack 包的ecr不为0仍能接受连接, Linux发送RST报文
+    error-tldk-test-error15.pkt
+    需要看标准判断是否修复
+
+16. syn ack 包没有mss选项时导致write无法发出报文 - 1
+    error-tldk-test-error16.pkt
+    已修复
+
+17. syn ack 包包含未知option且长度为0时,程序死循环 - 1
+    已修复
+
+18. timestamp为0,ecr不为0导致write内容错误(ecr为0时不会错误) - 1
+    已修复
+
+19. timestamp为0,ecr为0,返回报文没有timestamp选项(Linux有) - 3
+    error-tldk-test-error19.pkt
+    已知问题，未修复，可能短期不修复
+
+20. 

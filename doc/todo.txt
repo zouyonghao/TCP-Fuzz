@@ -1,0 +1,28 @@
+使正常包的版本号, off, option有几率错误 - done
+修复乱续包的内容问题 - done
+多options - done
+减少全局变量, 模块化代码 - done
+终态 checker - done
+    last ack
+    last ecr
+增加对断开连接的测试
+
+敏感度实验
+    coverage(old/new) 随时间变化情况,及总数
+    bug 数
+    bug 出现时间
+1. 传统coverage, 能否找到bug, 看if变化的coverage *
+2. 只fuzz包和只有syscall的对比
+    new coverage + no_syscall/no_packet
+    2.1 old coverage + syscall ~= syzkaller
+        old coverage + packet ~= AFL
+3. 不考虑包和syscall关系, 随机 + 旧coverage
+
+对比实验
+1. 用afl测试
+2. boofuzz
+3. 文件系统测试方法,在syscall不变时,变包,交替进行 + 旧coverage *
+
+扩展
+1. tcp/ip: mtcp, fstack 2
+2. icmp
