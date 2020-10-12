@@ -17,37 +17,8 @@
 // set ip checksum to 0x0000
 // set tcp flags to 0xb1
 +0 < F. 3962:6683(2721) ack 1 win 45489
+
 +0.1 read(4, ..., 177) =  177
 +0.1 write(4, ..., 177) =  177
 +0 < . 3962:7468(3506) ack 1 win 29046
-// inject fuzz dup packets
-// kind is 254, length is 38
-// set ip ihl to 0x00
-// set tcp ack seq to 0x6900766e
-// unknown experimental option
-+0 < . 7468:11298(3830) ack 1853227113 win 9318
-// kind is 32, length is 0
-+0 < . 7468:15739(8271) ack 1 win 14642
-+0 < . 7468:7482(14) ack 1 win 14643
-// set ip ihl to 0x0a
-// set tcp seq to 0x76003039
-+0 < . 959447158:959452832(5674) ack 1 win 30256
 +0.1 write(4, ..., 113) =  -1
-+0 < . 7468:7693(225) ack 1 win 29045
-// inject fuzz error packet
-// set ip ihl to 0x0a
-+0 < . 7693:9074(1381) ack 1 win 28278
-+0.1 read(4, ..., 26) =  26
-// kind is 8, length is 10
-+0 < . 7693:12287(4594) ack 1 win 28211 <TS val 863073650 ecr 1852256369,eol,eol>                                                   
-// inject fuzz dup packets
-// set ip ihl to 0x03
-// set tcp ack seq to 0x6d00767a
-+0 < . 12287:15074(2787) ack 2054553709 win 30565
-// kind is 254, length is 22
-// unknown experimental option
-+0 < . 12287:21538(9251) ack 1 win 25975
-+0 < . 12287:16544(4257) ack 1 win 26990
-+0 < . 12287:16248(3961) ack 1 win 36215
-+0.1 read(4, ..., 51) =  51
-+0.1 write(4, ..., 0) =  -1
