@@ -73,4 +73,5 @@ extern int find_or_create_socket_for_script_packet(
 
 extern int tcp_convert_seq_number(struct socket *socket, struct packet *packet,
 				  char **error);
+extern int find_tcp_timestamp(struct packet *packet, char **error);
 #endif /* __RUN_PACKET_H__ */

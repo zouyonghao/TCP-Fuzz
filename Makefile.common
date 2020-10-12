@@ -1,6 +1,6 @@
 all: binaries
 
-CFLAGS = -g -Wall -O0
+CFLAGS += -g -Wall -O0
 
 parser.o: parser.y
 	bison --output=parser.c --defines=parser.h --report=state parser.y

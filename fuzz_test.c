@@ -118,6 +118,31 @@ void fuzz_three_way_handshake_packets() {
 	p->tcp->syn = event->event.packet->tcp->syn;
 	p->tcp->ack = event->event.packet->tcp->ack;
 	packet_free(event->event.packet);
+#ifdef _TLDK
+	char *error;
+	find_tcp_timestamp(p, &error);
+	if (p->tcp_ts_ecr != NULL && *(p->tcp_ts_ecr) != 0) {
+		/**
+		 * NOTE: RST is sent if ts ecr is not zero in Linux but TLDK.
+		 * This is error 15
+		 */
+		printf("RST is sent if ts ecr is not zero in Linux but TLDK\n");
+		exit(0);
+	}
+	if (p->tcp_ts_ecr != NULL &&
+		p->tcp_ts_val != NULL &&
+		*(p->tcp_ts_ecr) == 0 &&
+		*(p->tcp_ts_val) == 0) {
+		/**
+		 * NOTE: packets have timestamp option 
+		 *       if ts val and ecr are both zero in Linux but TLDK.
+		 * This is error 19.
+		 */
+		printf("packets have timestamp option \n");
+		printf("if ts val and ecr are both zero in Linux but TLDK\n");
+		exit(0);
+	}
+#endif
 	event->event.packet = p;
 }
 

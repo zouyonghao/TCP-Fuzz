@@ -395,7 +395,7 @@ static void set_outbound_ts_val_mapping(
  * STATUS_OK on success; on failure returns STATUS_ERR and sets
  * error message.
  */
-static int find_tcp_timestamp(struct packet *packet, char **error)
+int find_tcp_timestamp(struct packet *packet, char **error)
 {
 	struct tcp_options_iterator iter;
 	struct tcp_option *option = NULL;

@@ -1,0 +1,16 @@
+1. ack包ecr错误时，Linux发送RST包 - 3
+    f-stack-error1.pkt
+    This is a Linux bug!
+
+2. 异常ack值导致read结果不同 - 3
+    f-stack-error2.pkt
+    FreeBSD仅实现了部分RFC5961的内容
+
+3. ioctl返回值异常
+    f-stack-error3.pkt
+
+4. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同
+    f-stack-error4.pkt
+
+5. 带内容syn ack包的处理与Linux不同
+    f-stack-error5.pkt
