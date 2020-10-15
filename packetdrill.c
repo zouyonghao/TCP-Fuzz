@@ -121,8 +121,6 @@ int main(int argc, char *argv[])
 		run_init_scripts(&config);
 		run_script(&config, &script);
 	}
-	fuzz_result[fuzz_result_index] = '\0';
-	printf("fuzz_result : %s\n", fuzz_result);
 
 	return 0;
 }
