@@ -8,62 +8,62 @@ extern int last_write_num;
 void add_read_to_fuzz_script(int read_num) {
 	char read_string[100];
 	sprintf(read_string, "+0.1 read(4, ..., %d) =  %d\n", read_num, read_num);
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 void add_write_to_fuzz_script(int write_num) {
 	char read_string[100];
 	sprintf(read_string, "+0.1 write(4, ..., %d) =  %d\n", write_num, write_num);
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 void add_ioctl_siocinq_to_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0.1 ioctl(4, SIOCINQ, [0]) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 void add_fcntl_getfl_to_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 fcntl(4, F_GETFL) = 2050\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 void add_fcntl_setfl_nonblock_to_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 void add_fcntl_setfl_block_to_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 fcntl(4, F_SETFL, O_RDWR) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 void add_setsockopt1_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 void add_setsockopt2_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 void add_setsockopt3_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 void add_setsockopt4_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 void add_setsockopt5_fuzz_script() {
 	char read_string[100];
 	sprintf(read_string, "+0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0\n");
-	add_content_to_fuzz_script((char *) &read_string);
+	add_content_to_fuzz_script((char *) read_string);
 }
 
 // TODO: optimize these duplicated functions
