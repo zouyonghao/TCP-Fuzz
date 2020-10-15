@@ -14,8 +14,4 @@
 +0.2 accept(3, ..., ...) = 4
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 
-+0.1 < . 1:101(100) ack 1 win 92 <mss 1000,sackOK,TS val 100 ecr 100,nop,wscale 7>
-+0 ~ +1  > . 1:1(0) ack 101 <nop,nop,TS val 487773785 ecr 100>
-+0.1 read(4, ..., 117) =  100
-+0.1 < . 101:201(100) ack 1 win 92 <mss 1000,sackOK,nop,wscale 7, nop, nop>
-+0.1 read(4, ..., 117) =  100
++0.1 write(4, ..., 0) =  0

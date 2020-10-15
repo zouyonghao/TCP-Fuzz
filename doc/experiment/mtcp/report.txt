@@ -1,0 +1,34 @@
+1. 除0错 - 1
+    error-mtcp-error1.pkt
+    已修复
+
+2. Seg fault - 1
+    error-mtcp-error2.pkt
+    已修复
+
+3. 没有timestamp option时会丢包 - 1
+    error-mtcp-error3.pkt
+    已修复：如果没有timestamp，则跳过相关逻辑
+
+4. write长度为0时返回值错误 - 3
+    error-mtcp-error4.pkt
+    已修复：如果长度为0则返回0
+
+5. 握手包中没有timestamp时，返回的包中有timestamp
+    error-mtcp-error5.pkt
+    已修复
+
+6. 未检查ack值是否合法
+    error-mtcp-error6.pkt
+
+7. syn_ack之后的ack包的ts值不生效
+    error-mtcp-error7.pkt
+    已修复
+
+8. read值超过2041时，read内容有错
+    error-mtcp-error8.pkt
+    已修复
+
+9. read 0返回值错误
+    error-mtcp-error9.pkt
+    已修复

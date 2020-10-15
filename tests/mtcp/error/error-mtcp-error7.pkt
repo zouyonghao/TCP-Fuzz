@@ -10,12 +10,10 @@
 +0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 100 ecr 0,nop,wscale 7>
 +0 ~ +1  > S. 0:0(0) ack 1 <...>
 
-+.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 100 ecr 100,nop,wscale 7>
++.1 < . 1:1(0) ack 1 win 14702 <nop, nop, TS val 1986949481 ecr 1718247791>
 +0.2 accept(3, ..., ...) = 4
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 
-+0.1 < . 1:101(100) ack 1 win 92 <mss 1000,sackOK,TS val 100 ecr 100,nop,wscale 7>
-+0 ~ +1  > . 1:1(0) ack 101 <nop,nop,TS val 487773785 ecr 100>
-+0.1 read(4, ..., 117) =  100
-+0.1 < . 101:201(100) ack 1 win 92 <mss 1000,sackOK,nop,wscale 7, nop, nop>
-+0.1 read(4, ..., 117) =  100
++0 < . 1:9123(9122) ack 1 win 28265
+// ack error to see whether ecr is correct
++0.1 > . 1:1(0) ack 1 <nop,nop, TS val 1986949481 ecr 1986949481>
