@@ -27,6 +27,7 @@ void reinit_fuzzing_variable() {
 
 	last_received_packet_ack_seq = 0;
 	last_received_packet_ecr = 0;
+	is_received_packet_has_timestamp = false;
 }
 
 

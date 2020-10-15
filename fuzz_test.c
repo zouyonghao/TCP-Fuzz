@@ -149,7 +149,7 @@ void fuzz_three_way_handshake_packets() {
 void print_packet(struct packet *p) {
 	char *dump = NULL;
 	char *error = NULL;
-	packet_to_string(p, DUMP_SHORT, &dump, &error);
+	packet_to_string(p, DUMP_FULL, &dump, &error);
 	printf("%s\n", dump);
 }
 
@@ -221,10 +221,11 @@ void my_run_script() {
 					fuzz_three_way_handshake_packets();
 				}
 				run_local_packet_event(state, event, event->event.packet);
-				print_packet(event->event.packet);
 				if (event->event.packet->direction == DIRECTION_INBOUND) {
+					printf("INBOUND: ");
 					add_packet_to_fuzz_script(event->event.packet);
 				}
+				print_packet(event->event.packet);
 				break;
 			case SYSCALL_EVENT:
 				run_system_call_event(state, event,
@@ -304,10 +305,17 @@ void my_run_script() {
 	PrintCoverage();
 
 	update_fuzz_scripts();
-	DEBUG_FUZZP("fuzz_script is :\n");
+	update_fuzz_results();
+	DEBUG_FUZZP("fuzz_scripts is :\n");
 	for (int i = 0; i <= fuzz_loop_index; i++) {
 		if (fuzz_scripts[i] != NULL) {
 			DEBUG_FUZZP("%s", fuzz_scripts[i]);
+		}
+	}
+	DEBUG_FUZZP("fuzz_results is :\n");
+	for (int i = 0; i <= fuzz_loop_index; i++) {
+		if (fuzz_results[i] != NULL) {
+			DEBUG_FUZZP("%s", fuzz_results[i]);
 		}
 	}
 
@@ -489,6 +497,7 @@ int main(int argc, char *argv[]) {
 	char **step1_results = fuzz_results;
 	u32 step1_last_received_ack = last_received_packet_ack_seq;
 	u32 step1_last_received_ecr = last_received_packet_ecr;
+	bool step1_is_received_packet_has_timestamp = is_received_packet_has_timestamp;
 	DEBUG_FUZZP("Step1 finished!\n");
 
 	if (read_result_validate_error) {
@@ -517,6 +526,12 @@ int main(int argc, char *argv[]) {
 
 	if (step1_last_received_ecr != last_received_packet_ecr) {
 		printf("last received ecr different!\n");
+		print_scripts(MAX_LOOP_INDEX);
+		abort();
+	}
+
+	if (step1_is_received_packet_has_timestamp != is_received_packet_has_timestamp) {
+		printf("One of your tests does not receive timestamp!\n");
 		print_scripts(MAX_LOOP_INDEX);
 		abort();
 	}

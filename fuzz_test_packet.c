@@ -6,6 +6,7 @@ u32 last_packet_data_length;
 
 u32 last_received_packet_ack_seq;
 u32 last_received_packet_ecr;
+bool is_received_packet_has_timestamp;
 
 u32 packet_seq = 1;
 u32 packet_ack_seq = 1;
@@ -301,7 +302,9 @@ void *validate_outbound_packet(void *p) {
 		}
 
 		last_received_packet_ack_seq = live_packet->tcp->ack_seq;
+		find_tcp_timestamp(live_packet, &error);
 		if (live_packet->tcp_ts_ecr != NULL) {
+			is_received_packet_has_timestamp = true;
 			last_received_packet_ecr = *(live_packet->tcp_ts_ecr);
 		}
 	out:
