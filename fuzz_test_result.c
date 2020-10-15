@@ -18,8 +18,8 @@ void reinit_fuzzing_results() {
 	 * NOTE: the string for compare result
 	 */
 	fuzz_result_index = 0;
-	fuzz_result = malloc(3000);
-	memset(fuzz_result, 0, 3000);
+	fuzz_result = malloc(30000);
+	memset(fuzz_result, 0, 30000);
 	
 	fuzz_results = malloc(1000 * sizeof(char *));
 	memset(fuzz_results, 0, 1000 * sizeof(char *));
