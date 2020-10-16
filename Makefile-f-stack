@@ -15,4 +15,5 @@ LIBS+= -L${FF_PATH}/lib -Wl,--whole-archive,-lfstack,--no-whole-archive
 LIBS+= -L${FF_DPDK}/lib -Wl,--whole-archive,-ldpdk,--no-whole-archive
 LIBS+= -Wl,--no-whole-archive -lnuma -lpthread -ldl -lrt -lpcap -lgmp -lcrypto -lm
 packetdrill-ext-libs := ${LIBS} 
+CFLAGS += -D_FSTACK
 include Makefile.common

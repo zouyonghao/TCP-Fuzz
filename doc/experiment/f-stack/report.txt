@@ -1,4 +1,4 @@
-1. ack包ecr错误时，Linux发送RST包 - 3
+1*. ack包ecr错误时，Linux发送RST包 - 3
     f-stack-error1.pkt
     This is a Linux bug!
 
@@ -14,3 +14,9 @@
 
 5. 带内容syn ack包的处理与Linux不同
     f-stack-error5.pkt
+
+6. 3WHS的前两个没有timestamp，但是最后一个ack包有timestamp时，accept结果不同
+    f-stack-error6.pkt
+
+7*. syn_ack包的ecr不为0时，Linux拒绝连接
+    f-stack-error7.pkt

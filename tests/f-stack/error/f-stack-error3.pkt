@@ -3,10 +3,10 @@
 // Establish a connection.
 0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
 +0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
-+0.1 ioctl(3, SIOCINQ, [0]) = 0
++0.1 ioctl(3, FIONREAD, [0]) = 0
 
 +0  bind(3, ..., ...) = 0
-+0.1 ioctl(3, SIOCINQ, [0]) = 0
++0.1 ioctl(3, FIONREAD, [0]) = 0
 
 +0  listen(3, 1) = 0
 +0  < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
@@ -18,4 +18,4 @@
 +0 < . 1:41(40) ack 1 win 28273 
 
 +0.1 ioctl(4, FIONREAD, [40]) = 0
-+0.1 ioctl(3, FIONREAD, [0]) = -1
++0.1 ioctl(3, FIONREAD, [0]) = -1 // f-stack return 0 here
