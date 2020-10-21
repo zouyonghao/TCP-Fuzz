@@ -293,7 +293,7 @@ void my_run_script() {
 		usleep(100000);
 		stop_validate_outbound_thread();
 	} else {
-		set_max_times_and_set_running(20);
+		set_max_times_and_set_running(25);
 		validate_outbound_packet(outbound_event->event.packet);
 	}
 
