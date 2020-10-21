@@ -148,7 +148,7 @@ void run_fuzz_syscall_read_event() {
 	for (int i = 0; i < 2; i++) {
 		argument = argument->next;
 	}
-	int read_num = read_int();
+	int read_num = read_int() % 30000;
 	DEBUG_FUZZP("\033[33mread num is %d\033[0m\n", read_num);
 	argument->expression->value.num = read_num;
 	event->event.syscall->result->value.num = read_num;
