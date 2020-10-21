@@ -37,17 +37,16 @@ packetdrill-lib := \
 packetdrill-objs := packetdrill.o $(packetdrill-lib)
 
 packetdrill: $(packetdrill-objs)
-	$(CC) -o packetdrill -g $(packetdrill-objs) /bin/lib_exfunc.o $(packetdrill-ext-libs) 
+	$(CC) -o packetdrill -g $(packetdrill-objs) $(packetdrill-ext-libs) 
 
 packetdrill_asan: $(packetdrill-objs)
 	clang-9 -g -fsanitize=address $(packetdrill-lib) packetdrill.o \
-        /bin/lib_exfunc.o \
+        $(packetdrill-ext-libs) \
             -o packetdrill -lpthread -lpcap
 
 packetdrill_old: $(packetdrill-objs)
 	clang-9 -g $(packetdrill-lib) packetdrill.o \
         ../../../tldk-old/libtldk.so \
-        /bin/lib_exfunc.o \
             -o packetdrill_old -lpthread -lpcap
 
 # test-bins := checksum_test packet_parser_test packet_to_string_test fuzz_test
@@ -112,8 +111,8 @@ fuzz_test_gcc: $(fuzz_test-objs)
 
 fuzz_test_asan: $(fuzz_test-objs)
 	# gcc -c -g fuzz_test.c
-	clang-9 -g -fsanitize=address $(fuzz_test-objs) \
-        $(TLDK_ROOT)/libtldk.so \
+	clang -g -fsanitize=address $(fuzz_test-objs) \
+        $(packetdrill-ext-libs) \
         /bin/lib_exfunc.o \
             -o fuzz_test -lpthread -lpcap
 
