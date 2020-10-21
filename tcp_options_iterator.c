@@ -158,7 +158,11 @@ struct tcp_option *tcp_options_next(
 	}
 
 	/* Advance to the next TCP option. */
-	assert(length > 0);
+	// assert(length > 0);
+	if (length <= 0) {
+		printf("tcp option length < 0, ignored for testing!\n");
+		goto out;
+	}
 	iter->current_option += length;
 	// assert(iter->current_option <= iter->options_end);
 	return get_current_option(iter);
