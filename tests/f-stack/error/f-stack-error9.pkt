@@ -1,0 +1,63 @@
+// DO NOT delete or add line in this file
+// ./output/fuzzer2/crash/000022-000022-1602339045706167
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 0 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++.5  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 25710 // do not send TS when testing f-stack by default
++0.1 accept(3, ..., ...) = 4
+
+// kind is 254, length is 10
+// kind is 0, length is 1
+// kind is 0, length is 1
+// kind is 8, length is 10
+// kind is 0, length is 1
+// kind is 0, length is 1
+// kind is 0, length is 1
+// kind is 0, length is 1
+// kind is 0, length is 1
+// kind is 0, length is 1
+// unknown experimental option
++0 < . 1:5206(5205) ack 1 win 27510 <TS val 0 ecr 0, eol, eol, TS val 0 ecr 0, eol, eol, eol, eol, eol, eol>
+
++0.1 read(4, ..., 4467) =  4467
++0.1 write(4, ..., 2159) =  2159
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 < . 5206:12080(6874) ack 1 win 13422 
+
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// kind is 254, length is 17
+// unknown experimental option
++0 < . 12080:19459(7379) ack 1 win 26234 <nop, nop, nop, nop,nop, nop, nop, nop,nop, nop, nop, nop,nop, nop, nop, nop,nop, eol, eol, eol>
+
++0.1 ioctl(4, SIOCINQ, [14991]) = 0
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
+// kind is 4, length is 2
+// kind is 34, length is 8
+// kind is 254, length is 25
+// kind is 0, length is 1
+// unknown experimental option
++0 < . 19459:24664(5205) ack 1 win 13113 <sackOK, nop, nop, nop, nop,nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, eol>
+
++0.1 write(4, ..., 1901) =  1901
++0.1 ioctl(4, SIOCINQ, [20196]) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 < . 24664:33059(8395) ack 1 win 15667 
+
++0.1 read(4, ..., 2212) =  2212

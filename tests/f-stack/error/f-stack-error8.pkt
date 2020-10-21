@@ -1,0 +1,18 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++.5  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 // do not send TS when testing f-stack by default
++0.1 accept(3, ..., ...) = 4
+
++0 < . 1:2001(2000) ack 1 win 25726
++0 < . 1:4091(4090) ack 1 win 25198
++0.1 read(4, ..., 20290) =  4090

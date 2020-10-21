@@ -8,9 +8,9 @@
 +0  listen(3, 1) = 0
 
 +0 < S 0:0(0) win 12336 <TS val 100 ecr 0,eol,mss 14705,eol>
-+0 ~ +1  > S. 0:0(0) ack 1 <...>
++0 ~ +1  > S. 0:0(0) ack 1 <mss 1460,nop,nop,TS val 100 ecr 100>
 
-+.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 100 ecr 100,nop,wscale 7>
++.1 < . 1:1(0) ack 1 win 32792 <TS val 1634432634 ecr 1885498930,eol,eol>
 
 // RST is sent in f-stack
 // +.1 > R 1:1(0)
