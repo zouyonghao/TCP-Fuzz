@@ -1829,10 +1829,13 @@ static int syscall_read(struct state *state, struct syscall_spec *syscall,
 	}
 
 	add_read_result_to_fuzz_result(buf, result);
-	for (int i = 0; i < result; i++) {
-		DEBUG_FUZZP("%c", buf[i] + '0');
+	if (packetdrill) {
+		printf("result = %d\n", result);
+		for (int i = 0; i < result; i++) {
+			printf("%c", buf[i] + '0');
+		}
+		printf("\n");
 	}
-	DEBUG_FUZZP("\n");
 
 	int status = end_syscall(state, syscall, CHECK_EXACT, result, error);
 
