@@ -552,14 +552,19 @@ static int map_inbound_packet(
 	 * NOTE: this will set the tcp_ts_ecr, and it will trigger 
 	 * the line 571 to make the unexpected tcp_ts_ecr to zero,
 	 * which will let the Linux act same like FreeBSD/f-stack
-	 * with f-stack-error7.pkt
-	 * 
+	 * with f-stack-error7.pkt and f-stack-error1.pkt
+	 * but f-stack-error6.pkt
 	 */	
-	if (live_packet->tcp->syn)
+	if (live_packet->tcp->syn || ntohl(live_packet->tcp->seq) < 3)
 	/* Find the timestamp echo reply is, so we can remap that below. */
 	if (find_tcp_timestamp(live_packet, error))
 		return STATUS_ERR;
-
+#ifdef _FSTACK
+	if (live_packet->tcp_ts_ecr && (live_packet->tcp->syn || ntohl(live_packet->tcp->seq) < 3)) {
+		packet_set_tcp_ts_ecr(live_packet, 100);
+		// printf("%d\n", packet_tcp_ts_ecr(live_packet));
+	}
+#endif
 	/* Remap TCP timestamp echo reply from script value to a live
 	 * value. We say "a" rather than "the" live value because
 	 * there could be multiple live values corresponding to the
@@ -1808,6 +1813,9 @@ static int do_inbound_script_packet(
 			socket->live.local.port = htons(state->config->live_bind_port);
 	}
 
+	for (int i = 20 + packet->tcp->doff * 4, j = 0; i < packet->buffer_bytes; i++, j++) {
+		packet->buffer[i] = (packet->tcp->seq + j) % 10;
+	}
 	/* Start with a bit-for-bit copy of the packet from the script. */
 	struct packet *live_packet = packet_copy(packet);
 	/* Map packet fields from script values to live values. */
