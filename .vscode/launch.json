@@ -119,6 +119,37 @@
             "miDebuggerPath": "${workspaceFolder}/gdb"
         },
         {
+            "name": "fuzz_test_f-stack",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/fuzz_test",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.0.2",
+                "--tun_id=0",
+                "--so_filename=1",
+                "--fuzz_file_name=./fuzz_test_input",
+                "--tolerance_usecs=100000000",
+                "--no_fuzz_receive_packets_in_background"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/scripts/f-stack",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
             "name": "packetdrill",
             "type": "cppdbg",
             "request": "launch",
@@ -132,6 +163,35 @@
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [
+                // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "gcc-7 build active file",
+            "miDebuggerPath": "${workspaceFolder}/gdb"
+        },
+        {
+            "name": "packetdrill-f-stack",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/packetdrill",
+            "args": [
+                "--local_ip=192.168.0.2",
+                "--remote_ip=192.0.2.1",
+                "${workspaceFolder}/tests/f-stack/error/f-stack-error9.pkt",
+                // "--so_filename=${workspaceFolder}/libtldk.so",
+                "--tolerance_usecs=100000000"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/scripts/f-stack",
             "environment": [
                 // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
             ],
