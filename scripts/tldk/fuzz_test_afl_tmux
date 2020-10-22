@@ -1,5 +1,5 @@
 tmux new-session \; \
-  split-window -h -p 25 \; \
+  split-window -h -p 50 \; \
   send-keys 'sleep 10 && tail -f ./output/fuzzer*/plot-curve' C-m \; \
   select-pane -t 0 \; \
   send-keys './fuzz_test_afl_master1.sh' C-m \; \
