@@ -32,3 +32,13 @@
 9. read 0返回值错误
     error-mtcp-error9.pkt
     已修复
+
+10. 包序号小于前一个包时会丢包
+    error-mtcp-erro10.pkt
+    已修复
+
+11. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同
+    error-mtcp-error11.pkt
+
+12. syn ack 包的ecr为随机值时, Linux发送RST报文 - 3
+    error-mtcp-error12.pkt 运行此脚本需要注释掉 run_packet.c 558~561 使生成的ts ecr错误

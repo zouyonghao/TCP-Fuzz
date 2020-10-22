@@ -75,3 +75,6 @@
 
 20. 如果包中含有两个timestamp选项，结果与Linux不同 - 3
     error-tldk-test-error20.pkt
+
+21. read返回值错误
+    error-tldk-test-error21.pkt

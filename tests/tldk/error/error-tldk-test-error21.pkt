@@ -1,0 +1,77 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:3899(3898) ack 1 win 25958
+// inject fuzz error packet
+// set ip ihl to 0x02
+// set tcp ack seq to 0x74002a2d
++0 < . 3899:5829(1930) ack 757727348 win 29540
++0.1 read(4, ..., 704655156) =  3898
++0.1 ioctl(4, SIOCINQ, [0]) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// kind is 254, length is 33
+// kind is 4, length is 2
+// unknown experimental option
++0 < . 3899:4908(1009) ack 1 win 28979
++0.1 ioctl(4, SIOCINQ, [1009]) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// kind is 3, length is 3
+// kind is 254, length is 17
+// unknown experimental option
++0 < . 4908:14837(9929) ack 1 win 30318
+// inject fuzz error packet
+// kind is 0, length is 1
+// set ip ihl to 0x01
+// set tcp seq to 0x33003430
++0 < . 808714291:808721225(6934) ack 1 win 28278 <eol,eol,eol,eol>
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
+// set ip ihl to 0x05
+// set tcp ack seq to 0x6e006730
++0 < . 14837:16211(1374) ack 812056686 win 13422
+// inject fuzz error packet
+// set ip ihl to 0x05
+// set tcp ack seq to 0x6e007133
++0 < . 16211:23144(6933) ack 863043694 win 13108
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 < . 16211:26188(9977) ack 1 win 14178
+// inject fuzz error packet
+// kind is 4, length is 2
+// set ip ihl to 0x09
+// set tcp ack seq to 0x75007675
++0 < . 26188:35439(9251) ack 1970667637 win 13101 <sackOK,eol,eol>
++0.1 read(4, ..., 855651384) =  10938
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+// kind is 8, length is 10
++0 < . 26188:32654(6466) ack 1 win 25202 <TS val 1768842857 ecr 1781674797,eol,eol>
++0.1 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// kind is 0, length is 1
+// kind is 34, length is 23
++0 < . 32654:34199(1545) ack 1 win 25709 <eol,FO 2d71773833393534676a6e302d3139336e75762d71>
++0 < . 34199:44128(9929) ack 2000158777 win 14642
++0.1 read(4, ..., 855668272) =  -1
++0.1 read(4, ..., 0) =  0
