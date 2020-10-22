@@ -11,6 +11,7 @@
 3. ioctl返回值异常
     f-stack-error3.pkt
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250366
+    https://reviews.freebsd.org/D26897
 
 4. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同
     f-stack-error4.pkt
