@@ -19,3 +19,4 @@ fuzz_test_input2
 fuzz_test_input3
 fuzz_test_input4
 fuzz_test_input5
+sync_branch_cov_file

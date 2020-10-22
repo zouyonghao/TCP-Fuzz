@@ -81,25 +81,11 @@ fuzz_test_debug: $(fuzz_test-objs)
             /bin/lib_exfunc.o \
             -o fuzz_test -pthread -lpcap
 
-fuzz_test_oldcov: $(fuzz_test-objs)
-	# gcc -c -g fuzz_test.c
-	clang-9 -g $(fuzz_test-objs) \
-        $(TLDK_ROOT)/libtldk.so \
-            /bin/lib_exfunc_oldcov.o \
-            -o fuzz_test -pthread -lpcap
-
 fuzz_test_oldtldk: $(fuzz_test-objs)
 	# gcc -c -g fuzz_test.c
 	clang-9 -g $(fuzz_test-objs) \
         ../../../tldk-old/libtldk.so \
             /bin/lib_exfunc.o \
-            -o fuzz_test -pthread -lpcap
-
-fuzz_test_oldcov_oldtldk: $(fuzz_test-objs)
-	# gcc -c -g fuzz_test.c
-	clang-9 -g $(fuzz_test-objs) \
-        ../../../tldk-old/libtldk.so \
-            /bin/lib_exfunc_oldcov.o \
             -o fuzz_test -pthread -lpcap
 
 fuzz_test_gcc: $(fuzz_test-objs)
