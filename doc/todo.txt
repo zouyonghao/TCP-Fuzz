@@ -16,7 +16,8 @@
     new coverage + no_syscall/no_packet
     2.1 old coverage + syscall ~= syzkaller
         old coverage + packet ~= AFL
-3. 不考虑包和syscall关系, 随机 + 旧coverage
+    2.2 old coverage + 单个包/syscall
+        old coverage + 不考虑包和syscall关系, 随机
 
 对比实验
 1. 用afl测试

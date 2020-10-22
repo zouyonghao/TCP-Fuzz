@@ -1,1 +1,1 @@
-/bin/AFLCplusplus -i input -o output -f fuzz_test_input../../fuzz_test--local_ip=192.168.0.2 --remote_ip=192.0.0.1 --so_filename=/home/zyh/Desktop/tldk-2/libtldk.so --tolerance_usecs=200000000 /home/zyh/Desktop/tldk-2/test/packetdrill/fuzz_test.pkt
+/bin/AFLCplusplus -i input -o output -f fuzz_test_input../../fuzz_test --local_ip=192.168.0.2 --remote_ip=192.0.0.1 --so_filename=/home/zyh/Desktop/tldk-2/libtldk.so --tolerance_usecs=200000000 /home/zyh/Desktop/tldk-2/test/packetdrill/fuzz_test.pkt

@@ -7,7 +7,7 @@ walk_dir () {
             continue
         fi
         echo "$pathname"
-        if../../fuzz_test--local_ip=192.168.0.2 --remote_ip=192.0.0.2  --so_filename=/home/zyh/Desktop/tldk-old/libtldk.so \
+        if../../fuzz_test --local_ip=192.168.0.2 --remote_ip=192.0.0.2  --so_filename=/home/zyh/Desktop/tldk-old/libtldk.so \
         --tolerance_usecs=10000000 --fuzz_file_name=fuzz_test_input ./fuzz_test.pkt 2>log | grep -q "TLDK differs"; then
             echo "Find different!"
             if ./fuzz_test_remove_duplicate unique_error_seqs log; then

@@ -37,16 +37,16 @@ packetdrill-lib := \
 packetdrill-objs := packetdrill.o $(packetdrill-lib)
 
 packetdrill: $(packetdrill-objs)
-	$(CC) -o packetdrill -g $(packetdrill-objs) $(packetdrill-ext-libs) 
+	$(CC) -o packetdrill -g /bin/lib_exfunc.o $(packetdrill-objs) $(packetdrill-ext-libs) 
 
 packetdrill_asan: $(packetdrill-objs)
 	clang-9 -g -fsanitize=address $(packetdrill-lib) packetdrill.o \
-        $(packetdrill-ext-libs) \
+        $(packetdrill-ext-libs) /bin/lib_exfunc.o \
             -o packetdrill -lpthread -lpcap
 
 packetdrill_old: $(packetdrill-objs)
 	clang-9 -g $(packetdrill-lib) packetdrill.o \
-        ../../../tldk-old/libtldk.so \
+        ../../../tldk-old/libtldk.so  /bin/lib_exfunc.o \
             -o packetdrill_old -lpthread -lpcap
 
 # test-bins := checksum_test packet_parser_test packet_to_string_test fuzz_test
