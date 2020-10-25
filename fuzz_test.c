@@ -13,6 +13,8 @@ int last_write_num = 0;
 
 struct config config;
 
+bool record_coverage = true;
+
 struct predefined_syscall_event predefined_syscall_events[] = {
 		// syscall read
 		{30, run_fuzz_syscall_read_event, NULL},
@@ -78,7 +80,9 @@ void do_some_fuzz(int fuzz_loop) {
 
 			update_fuzz_scripts();
 
-			UpdateCoverage();
+			if (record_coverage) {
+				UpdateCoverage();
+			}
 			// PrintCoverage();
 		}
 
@@ -93,7 +97,9 @@ void do_some_fuzz(int fuzz_loop) {
 					update_state_and_event(predefined_syscall_events[j].e);
 					predefined_syscall_events[j].run_fuzz_syscall_func();
 					state->num_events++;
-					UpdateCoverage();
+					if (record_coverage) {
+						UpdateCoverage();
+					}
 					// PrintCoverage();
 					update_fuzz_scripts();
 					update_fuzz_results();
@@ -155,8 +161,10 @@ void print_packet(struct packet *p) {
 
 void my_run_script() {
 
-	ClearArray();
-	PrintCoverage();
+	if (record_coverage) {
+		ClearArray();
+		PrintCoverage();
+	}
 
 	reinit_fuzzing_variable();
 	reinit_fuzzing_results();
@@ -301,7 +309,7 @@ void my_run_script() {
 	update_state_and_event(syscall_close_event);
 	run_system_call_event(state, syscall_close_event, syscall_close_event->event.syscall);
 	state->num_events++;
-	UpdateCoverage();
+	// UpdateCoverage();
 	PrintCoverage();
 
 	update_fuzz_scripts();
@@ -516,6 +524,7 @@ int main(int argc, char *argv[]) {
 	state->so_instance = NULL;
 	state->live_start_time_usecs = schedule_start_time_usecs(state);
 
+	record_coverage = false;
 	my_run_script();
 
 	if (step1_last_received_ack != last_received_packet_ack_seq) {
