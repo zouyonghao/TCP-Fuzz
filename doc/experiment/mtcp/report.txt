@@ -18,14 +18,14 @@
     error-mtcp-error5.pkt
     已修复
 
-6. 未检查ack值是否合法
+6. 未检查ack值是否合法 - 1
     error-mtcp-error6.pkt
 
 7. syn_ack之后的ack包的ts值不生效
     error-mtcp-error7.pkt
     已修复
 
-8. read值超过2041时，read内容有错
+8. read值超过2041时，read内容有错 - 1
     error-mtcp-error8.pkt
     已修复
 
@@ -33,11 +33,11 @@
     error-mtcp-error9.pkt
     已修复
 
-10. 包序号小于前一个包时会丢包
+10. 包序号小于前一个包时会丢包 - 1
     error-mtcp-erro10.pkt
     已修复
 
-11. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同
+11. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同 - 1
     error-mtcp-error11.pkt
 
 12. syn ack 包的ecr为随机值时, Linux发送RST报文 - 3

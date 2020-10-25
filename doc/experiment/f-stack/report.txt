@@ -13,7 +13,7 @@
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250366
     https://reviews.freebsd.org/D26897
 
-4. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同
+4. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同 - 1
     f-stack-error4.pkt
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250360
 
@@ -21,14 +21,14 @@
     f-stack-error5.pkt
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250363
 
-6. 3WHS的前两个没有timestamp，但是最后一个ack包有timestamp时，accept结果不同
+6. 3WHS的前两个没有timestamp，但是最后一个ack包有timestamp时，accept结果不同 - 1
     f-stack-error6.pkt
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250499
 
 7*. syn_ack包的ecr不为0时，Linux拒绝连接
     f-stack-error7.pkt
 
-8. 发送不同长度、序号相同的包时，read内容错误
+8. 发送不同长度、序号相同的包时，read内容错误 - 1
     f-stack-error8.pkt
     在FreeBSD无法复现，应该是f-stack的问题
 

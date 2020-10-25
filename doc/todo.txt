@@ -27,6 +27,3 @@
 扩展
 1. tcp/ip: mtcp, fstack 2
 2. icmp
-
-讨论
-    收到Fin包，再收到相同序号的非Fin包，是否能写？
