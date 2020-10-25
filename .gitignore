@@ -20,3 +20,6 @@ fuzz_test_input3
 fuzz_test_input4
 fuzz_test_input5
 sync_branch_cov_file
+log1
+plot-curve
+test.png
