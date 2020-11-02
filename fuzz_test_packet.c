@@ -263,6 +263,7 @@ void set_max_times_and_set_running(int t) {
 }
 
 void *validate_outbound_packet(void *p) {
+	pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
 	struct packet *packet = (struct packet *) p;
 	DEBUG_FUZZP("validate_outbound_packet\n");
 	int times = 0;
@@ -300,12 +301,13 @@ void *validate_outbound_packet(void *p) {
 				is_validate_outbound_data_error = true;
 			}
 		}
-
-		last_received_packet_ack_seq = live_packet->tcp->ack_seq;
-		find_tcp_timestamp(live_packet, &error);
-		if (live_packet->tcp_ts_ecr != NULL) {
-			is_received_packet_has_timestamp = true;
-			last_received_packet_ecr = *(live_packet->tcp_ts_ecr);
+		if (!live_packet->tcp->rst) {
+			last_received_packet_ack_seq = live_packet->tcp->ack_seq;
+			find_tcp_timestamp(live_packet, &error);
+			if (live_packet->tcp_ts_ecr != NULL) {
+				is_received_packet_has_timestamp = true;
+				last_received_packet_ecr = *(live_packet->tcp_ts_ecr);
+			}
 		}
 	out:
 		if (live_packet != NULL)
