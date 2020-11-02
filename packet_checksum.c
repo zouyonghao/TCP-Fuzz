@@ -45,6 +45,7 @@ static void checksum_ipv4_packet(struct packet *packet)
 	// assert(l4_bytes > 0);
 	if (l4_bytes <= 0) {
 		printf("packet length error, ignored for testing!\n");
+		return;
 	}
 
 	/* Fill in IPv4-based layer 4 checksum. */
