@@ -297,13 +297,13 @@ void my_run_script() {
 	}
 
 	// sleep a while to receive more packets
-	if (!config.is_no_fuzz_receive_packets_in_background) {
-		usleep(100000);
-		stop_validate_outbound_thread();
-	} else {
-		set_max_times_and_set_running(25);
-		validate_outbound_packet(outbound_event->event.packet);
-	}
+	// if (!config.is_no_fuzz_receive_packets_in_background) {
+	// 	usleep(100000);
+	// 	stop_validate_outbound_thread();
+	// } else {
+	// 	set_max_times_and_set_running(25);
+	// 	validate_outbound_packet(outbound_event->event.packet);
+	// }
 
 	DEBUG_FUZZP("===========close syscall=========\n");
 	update_state_and_event(syscall_close_event);
@@ -314,6 +314,22 @@ void my_run_script() {
 
 	update_fuzz_scripts();
 	update_fuzz_results();
+
+	printf("Fuzz after close!\n");
+	/**
+	 * NOTE: Fuzz after close.
+	 */
+	do_some_fuzz(3);
+
+	// sleep a while to receive more packets
+	if (!config.is_no_fuzz_receive_packets_in_background) {
+		usleep(1000000);
+		stop_validate_outbound_thread();
+	} else {
+		set_max_times_and_set_running(25);
+		validate_outbound_packet(outbound_event->event.packet);
+	}
+
 	DEBUG_FUZZP("fuzz_scripts is :\n");
 	for (int i = 0; i <= fuzz_loop_index; i++) {
 		if (fuzz_scripts[i] != NULL) {
@@ -498,7 +514,7 @@ int main(int argc, char *argv[]) {
 	state = state_new(&config, &script, nd);
 	state->so_instance = so_instance_new();
 	so_instance_init(state->so_instance, &config, &script, state);
-	// signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
+	signal(SIGPIPE, SIG_IGN); /* ignore EPIPE */
 	state->live_start_time_usecs = schedule_start_time_usecs(state);
 
 	my_run_script();
@@ -528,7 +544,7 @@ int main(int argc, char *argv[]) {
 	my_run_script();
 
 	if (step1_last_received_ack != last_received_packet_ack_seq) {
-		printf("last received ack_seq different!\n");
+		printf("last received ack_seq different, step1 is %d, last is %d\n", step1_last_received_ack, last_received_packet_ack_seq);
 		print_scripts(MAX_LOOP_INDEX);
 		abort();
 	}
@@ -576,6 +592,7 @@ int main(int argc, char *argv[]) {
 		fflush(stdout);
 		abort();
 	}
+	// print_scripts(MAX_LOOP_INDEX);
 
 	// 3. run another script
 	if (*arg != NULL) {
