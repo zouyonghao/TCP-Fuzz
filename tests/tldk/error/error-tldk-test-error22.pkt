@@ -1,0 +1,70 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:696(695) ack 1 win 13439 
+// inject fuzz error packet
+// set ip ihl to 0x09
++0 < . 696:7758(7062) ack 1 win 28190 
++0.1 write(4, ..., 2159) =  2159
+// kind is 8, length is 10
++0 < . 696:4585(3889) ack 1 win 11633 <TS val 892626794 ecr 1849178419,eol,eol>
+// inject fuzz error packet
+// kind is 3, length is 3
+// set ip ihl to 0x0d
+// set tcp ack seq to 0x38007576
++0 < . 4585:5254(669) ack 1987379256 win 28263 <wscale 100,eol>
++0.1 read(4, ..., 18516) =  7757
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+// kind is 8, length is 10
++0 < . 4585:11051(6466) ack 1 win 25202 <TS val 1768842857 ecr 1781674797,eol,eol>
+
+// kind is 34, length is 23
+// kind is 1, length is 1
++0 < . 11051:20756(9705) ack 1 win 28022 <FO 2d71773833393534676a6e302d3139336e75762071,nop>
+// inject fuzz error packet
+// set ip ihl to 0x0e
+// set tcp seq to 0x30007138
++0 < . 946929712:946934179(4467) ack 1 win 27016 
++0.1 read(4, ..., 27576) =  12998
++0.1 write(4, ..., 1901) =  1901
+
++0 < . 20756:21427(671) ack 1 win 13157 
+// inject fuzz error packet
+// kind is 1, length is 1
+// set ip ihl to 0x07
+// set tcp ack seq to 0x30002d31
++0 < . 21427:28636(7209) ack 825032752 win 30330 <nop,eol,eol,eol>
+
+// kind is 8, length is 10
+// kind is 8, length is 10
++0 < . 21427:27388(5961) ack 1 win 59395 <TS val 960051513 ecr 960051513,TS val 960051513 ecr 960051513>
+// inject fuzz error packet
+// kind is 0, length is 1
+// kind is 1, length is 1
+// kind is 254, length is 23
+// set ip ihl to 0x0e
+// set tcp ack seq to 0x7500ee71
+// unknown experimental option
++0 < . 27388:31107(3719) ack 1911423093 win 14702 
++0.1 write(4, ..., 1269) =  1269
+
++0 < . 27388:30109(2721) ack 1 win 31347 
+// inject fuzz error packet
+// kind is 8, length is 10
+// set ip ihl to 0x0e
+// set tcp seq to 0x33006976
++0 < . 1986592819:1986594364(1545) ack 1 win 27186 <TS val 1667313977 ecr 862877046,eol,eol>
++0.1 read(4, ..., 7062) =  7062

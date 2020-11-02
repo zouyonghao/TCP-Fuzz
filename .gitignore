@@ -23,3 +23,5 @@ sync_branch_cov_file
 log1
 plot-curve
 test.png
+log2
+log3

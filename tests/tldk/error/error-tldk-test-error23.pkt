@@ -1,0 +1,45 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:939(938) ack 1853227113 win 27510 
+
++0 < . 6286:13495(7209) ack 1 win 31333 
+
++0 < . 13495:17325(3830) ack 2054553709 win 26474 
++0.1 read(4, ..., 2957) =  -1
++0.1 write(4, ..., 209) =  209
+
++0 < . 13495:22606(9111) ack 1 win 25599 
+
++0.1 read(4, ..., 19854) =  -1
+
++0 < . 22606:28412(5806) ack 1 win 14641 <eol,eol,eol,eol>
+
++0.1 write(4, ..., 2093) =  2093
+
++0 < . 28412:30226(1814) ack 1 win 14648 
+
++0 < . 30226:38498(8272) ack 942669876 win 30326 
+
++0 < . 0:1374(1374) ack 1 win 26465 
+
++0 < . 31600:34721(3121) ack 1 win 24881 
+
++0 < F. 34721:37442(2721) ack 1 win 30569 
++0 < . 34721:37842(3121) ack 1 win 45489 
+
++0.1 read(4, ..., 14016) =  1373
++0.1 write(4, ..., 2501) =  2501
