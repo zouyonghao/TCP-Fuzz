@@ -111,7 +111,7 @@ void do_some_fuzz(int fuzz_loop) {
 }
 
 void fuzz_three_way_handshake_packets() {
-	DEBUG_FUZZP("%s\n", "fuzz_threee_way_handshake_packets");
+	DEBUG_FUZZP("%s\n", "fuzz_three_way_handshake_packets");
 	/**
 	 * TODO: make the generated packet empty data
 	 */
