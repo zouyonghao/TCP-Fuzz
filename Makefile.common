@@ -70,7 +70,7 @@ packet_parser_test: $(packet_parser_test-objs)
 fuzz_test-objs := fuzz_test_syscall.o fuzz_test_helper.o fuzz_test_script.o fuzz_test_packet.o fuzz_test.o $(packetdrill-lib)
 
 fuzz_test: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
-	clang-9 -o fuzz_test -g $(fuzz_test-objs) \
+	$(CC) -o fuzz_test -g $(fuzz_test-objs) \
             /bin/lib_exfunc.o \
             $(packetdrill-ext-libs)
 
