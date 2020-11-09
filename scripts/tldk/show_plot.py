@@ -19,8 +19,8 @@ for line in f:
     # new_cov = line_items[12]
     # csv += time + ',' + old_cov + ',' + '0' + '\n'
     csv += time + ',' + old_cov + ',' + new_cov + '\n'
-    # if count > 1000:
-    #     break
+    if count > 20000:
+        break
 
 # print(csv)
 data = pd.read_csv(StringIO(csv))
