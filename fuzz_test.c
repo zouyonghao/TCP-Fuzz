@@ -81,6 +81,7 @@ void do_some_fuzz(int fuzz_loop) {
 			update_fuzz_scripts();
 
 			if (record_coverage) {
+				usleep(10000);
 				UpdateCoverage();
 			}
 			// PrintCoverage();
@@ -98,6 +99,7 @@ void do_some_fuzz(int fuzz_loop) {
 					predefined_syscall_events[j].run_fuzz_syscall_func();
 					state->num_events++;
 					if (record_coverage) {
+						usleep(10000);
 						UpdateCoverage();
 					}
 					// PrintCoverage();
