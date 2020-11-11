@@ -7,34 +7,24 @@
 1. 传统coverage, 能否找到bug, 看if变化的coverage *
     1.1 统计new cov下old cov的变化
         TLDK
-            - new_cov_normal_output
-                统计old cov下new cov的变化
-                - old_cov_normal_output
-                - 还有点问题，暂时忽略
+            -tldk/new_cov_normal_output
         F-stack
-            - f-stack/old_cov_normal_output
+            -f-stack/new_cov_normal_output
         mTCP
-            - mtcp/old_cov_normal_output
-            -- re runing on virtual2 ...
+            -mtcp/new_cov_normal_output
 
 2. 只fuzz包和只有syscall的对比
     2.1 old coverage + syscall ~= syzkaller
             TLDK
-                -- bugscan-laptop 运行 TLDK
-                    有问题，output_syscall1
-
+                --virtual3
             F-stack
-                - f-stack/old_cov_syscall_output
+                --virtual1
             mTCP
-                - mtcp/old_cov_syscall_output
+                --vritual2
         old coverage + packet ~= AFL
             TLDK
-            
             F-stack
-                -- 在virtual1运行 re running....
-                - tcp_fuzzer/scripts/f-stack/packet_output1
             mTCP
-                - virtual2: tcp_fuzzer/scripts/mtcp/packet_output1
     2.2 old coverage + 单个包/syscall
         old coverage + 不考虑包和syscall关系, 随机
 
