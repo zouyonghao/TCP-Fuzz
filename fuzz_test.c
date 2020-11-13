@@ -15,6 +15,8 @@ struct config config;
 
 bool record_coverage = true;
 
+bool has_fuzzed_once = false;
+
 struct predefined_syscall_event predefined_syscall_events[] = {
 		// syscall read
 		{30, run_fuzz_syscall_read_event, NULL},
@@ -40,6 +42,19 @@ struct predefined_syscall_event predefined_syscall_events[] = {
 		{43, run_fuzz_syscall_setsockopt4_event, NULL},
 		// syscall setsockopt IPPROTO_TCP TCP_KEEPCNT
 		{44, run_fuzz_syscall_setsockopt5_event, NULL}};
+
+bool should_fuzz() {
+	// if we do not set only fuzz once, then just return true
+	if (!config.is_fuzz_once) {
+		return true;
+	}
+
+	if (!has_fuzzed_once && read_byte() % 0xff < 0x7f) {
+		has_fuzzed_once = true;
+		return true;
+	}
+	return false;
+}
 
 void do_some_fuzz(int fuzz_loop) {
 	// let's do some fuzzing
@@ -88,7 +103,7 @@ void do_some_fuzz(int fuzz_loop) {
 		}
 
 		if (!config.is_no_fuzz_syscall) {
-			for (int j = 0; j < sizeof(predefined_syscall_events) / sizeof(struct predefined_syscall_event); j++) {
+			for (int j = 0; (j < ARRAY_SIZE(predefined_syscall_events)) && should_fuzz(); j++) {
 				if (predefined_syscall_events[j].e == NULL) {
 					continue;
 				}
@@ -227,7 +242,7 @@ void my_run_script() {
 
 		switch (event->type) {
 			case PACKET_EVENT:
-				if (event->event.packet->direction == DIRECTION_INBOUND && !config.is_no_fuzz_packet) {
+				if (event->event.packet->direction == DIRECTION_INBOUND && !config.is_no_fuzz_packet && !config.is_fuzz_once) {
 					fuzz_three_way_handshake_packets();
 				}
 				run_local_packet_event(state, event, event->event.packet);
@@ -261,7 +276,7 @@ void my_run_script() {
 
 	DEBUG_FUZZP("\033[33mrun_script: checking\033[0m\n");
 	for (int i = 0; i < 3; i++) {
-		if (!config.is_no_fuzz_packet) {
+		if (!config.is_no_fuzz_packet && should_fuzz()) {
 			event = new_event(PACKET_EVENT);
 			event->time_type = ANY_TIME;
 			// send inbound event
@@ -278,7 +293,7 @@ void my_run_script() {
 			DEBUG_FUZZP("packet_seq = %d\n", packet_seq);
 		}
 
-		if (!config.is_no_fuzz_syscall) {
+		if (!config.is_no_fuzz_syscall && should_fuzz()) {
 			DEBUG_FUZZP("===========read syscall=========\n");
 			struct event *syscall_read_event = predefined_syscall_events[0].e;
 			struct expression_list *argument = syscall_read_event->event.syscall->arguments;
@@ -307,10 +322,12 @@ void my_run_script() {
 	// 	validate_outbound_packet(outbound_event->event.packet);
 	// }
 
+	usleep(10000);
 	DEBUG_FUZZP("===========close syscall=========\n");
 	update_state_and_event(syscall_close_event);
 	run_system_call_event(state, syscall_close_event, syscall_close_event->event.syscall);
 	state->num_events++;
+	add_content_to_fuzz_script("+0 close(4) = 0\n");
 	// UpdateCoverage();
 	PrintCoverage();
 
@@ -328,7 +345,11 @@ void my_run_script() {
 		usleep(1000000);
 		stop_validate_outbound_thread();
 	} else {
-		set_max_times_and_set_running(25);
+		int max_run_times = 25;
+		if (config.is_fuzz_once) {
+			max_run_times = 3;
+		}
+		set_max_times_and_set_running(max_run_times);
 		validate_outbound_packet(outbound_event->event.packet);
 	}
 
@@ -419,6 +440,9 @@ void inject_error_to_packet(struct packet *p) {
 }
 
 void inject_fuzz_normal_packet() {
+	if (!should_fuzz()) {
+		return;
+	}
 	event = new_event(PACKET_EVENT);
 	event->time_type = ANY_TIME;
 	event->event.packet = fuzz_to_packet(true, true);
@@ -440,6 +464,9 @@ void inject_fuzz_normal_packet() {
 }
 
 void inject_fuzz_error_packet() {
+	if (!should_fuzz()) {
+		return;
+	}
 	event = new_event(PACKET_EVENT);
 	event->time_type = ANY_TIME;
 	// send inbound event
@@ -546,7 +573,7 @@ int main(int argc, char *argv[]) {
 	my_run_script();
 
 	if (step1_last_received_ack != last_received_packet_ack_seq) {
-		printf("last received ack_seq different, step1 is %d, last is %d\n", step1_last_received_ack, last_received_packet_ack_seq);
+		printf("last received ack_seq different, step1 is %u, last is %u\n", ntohl(step1_last_received_ack), ntohl(last_received_packet_ack_seq));
 		print_scripts(MAX_LOOP_INDEX);
 		abort();
 	}
