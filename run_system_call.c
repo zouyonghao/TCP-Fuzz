@@ -1180,7 +1180,10 @@ static struct fd_state *find_by_script_fd(
 	struct fd_state *fd = NULL;
 
 	for (fd = state->fds; fd != NULL; fd = fd->next)
-		if (!fd->is_closed && (fd->script_fd == script_fd)) {
+		if ((fd->script_fd == script_fd)) {
+			if (fd->is_closed) {
+				printf("fd %d is closed, but we currently ignore it\n", script_fd);
+			}
 			assert(fd->live_fd >= 0);
 			assert(fd->script_fd >= 0);
 			return fd;
@@ -1831,10 +1834,10 @@ static int syscall_read(struct state *state, struct syscall_spec *syscall,
 	add_read_result_to_fuzz_result(buf, result);
 	if (packetdrill) {
 		printf("result = %d\n", result);
-		for (int i = 0; i < result; i++) {
-			printf("%c", buf[i] + '0');
-		}
-		printf("\n");
+		// for (int i = 0; i < result; i++) {
+		// 	printf("%c", buf[i] + '0');
+		// }
+		// printf("\n");
 	}
 
 	int status = end_syscall(state, syscall, CHECK_EXACT, result, error);
