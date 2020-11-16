@@ -151,12 +151,13 @@ int tcp_options_to_string(struct packet *packet,
 		default:
 			asprintf(error, "unexpected TCP option kind: %u",
 				 option->kind);
-			goto out;
+			// goto out;
+			break;
 		}
 		++index;
 	}
-	if (*error != NULL)  /* bogus TCP options prevented iteration */
-		goto out;
+	// if (*error != NULL)  /* bogus TCP options prevented iteration */
+	// 	goto out;
 
 	result = STATUS_OK;
 

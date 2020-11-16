@@ -229,7 +229,7 @@ void my_run_script() {
 		}
 
 		bool get_event = false;
-		for (int i = 0; i < sizeof(predefined_syscall_events) / sizeof(struct predefined_syscall_event); i++) {
+		for (int i = 0; i < ARRAY_SIZE(predefined_syscall_events); i++) {
 			if (event->line_number == predefined_syscall_events[i].event_line_number) {
 				predefined_syscall_events[i].e = event;
 				get_event = true;
