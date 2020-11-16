@@ -52,13 +52,20 @@ struct packet *fuzz_to_packet(bool is_fuzz_options,
 	push_data(&data, 0x00, &fuzz_data_size, &fuzz_data_capacity);
 
 	// seq
-	/**
-	 * NOTE use `htonl` may be better?
-	 */
-	push_data(&data, (packet_seq >> 24) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
-	push_data(&data, (packet_seq >> 16) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
-	push_data(&data, (packet_seq >> 8) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
-	push_data(&data, packet_seq & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
+	if (config.is_fuzz_without_dependency) {
+		push_data(&data, read_byte(), &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, read_byte(), &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, read_byte(), &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, read_byte(), &fuzz_data_size, &fuzz_data_capacity);
+	} else {
+		/**
+		 * NOTE use `htonl` may be better?
+		 */
+		push_data(&data, (packet_seq >> 24) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, (packet_seq >> 16) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, (packet_seq >> 8) & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
+		push_data(&data, packet_seq & 0xFF, &fuzz_data_size, &fuzz_data_capacity);
+	}
 
 	/**
 	 * TODO: change ack seq as needed

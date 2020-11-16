@@ -22,6 +22,7 @@ extern u32 last_received_packet_ack_seq;
 extern u32 last_received_packet_ecr;
 extern bool is_received_packet_has_timestamp;
 extern bool is_validate_outbound_data_error;
+extern struct config config;
 
 struct packet *fuzz_to_packet(bool is_fuzz_options,
 							  bool is_fuzz_data);

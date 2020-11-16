@@ -242,7 +242,7 @@ void my_run_script() {
 
 		switch (event->type) {
 			case PACKET_EVENT:
-				if (event->event.packet->direction == DIRECTION_INBOUND && !config.is_no_fuzz_packet && !config.is_fuzz_once) {
+				if (event->event.packet->direction == DIRECTION_INBOUND && !config.is_no_fuzz_packet && !config.is_fuzz_once && !config.is_fuzz_without_dependency) {
 					fuzz_three_way_handshake_packets();
 				}
 				run_local_packet_event(state, event, event->event.packet);

@@ -72,7 +72,8 @@ enum option_codes {
 	OPT_NO_FUZZ_SYSCALL,
 	OPT_NO_FUZZ_PACKET,
 	OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND,
-	OPT_IS_FUZZ_ONCE
+	OPT_IS_FUZZ_ONCE,
+	OPT_IS_FUZZ_WITHOUT_DEPENDENCY
 };
 
 /* Specification of command line options for getopt_long(). */
@@ -115,6 +116,7 @@ struct option options[] = {
 	{ "no_fuzz_packet",	.has_arg = false,  NULL, OPT_NO_FUZZ_PACKET },
 	{ "no_fuzz_receive_packets_in_background",	.has_arg = false,  NULL, OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND },
 	{ "fuzz_once",	.has_arg = false,  NULL, OPT_IS_FUZZ_ONCE },
+	{ "fuzz_without_dependency", .has_arg = false, NULL, OPT_IS_FUZZ_WITHOUT_DEPENDENCY},
 	{ NULL },
 };
 
@@ -266,6 +268,7 @@ void set_default_config(struct config *config)
 	config->is_no_fuzz_packet = false;
 	config->is_no_fuzz_receive_packets_in_background = false;
 	config->is_fuzz_once = false;
+	config->is_fuzz_without_dependency = false;
 }
 
 static void set_remote_ip_and_prefix(struct config *config)
@@ -549,6 +552,9 @@ static void process_option(int opt, char *optarg, struct config *config,
 		break;
 	case OPT_IS_FUZZ_ONCE:
 		config->is_fuzz_once = true;
+		break;
+	case OPT_IS_FUZZ_WITHOUT_DEPENDENCY:
+		config->is_fuzz_without_dependency = true;
 		break;
 	default:
 		show_usage();

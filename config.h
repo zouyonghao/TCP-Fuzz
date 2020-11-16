@@ -171,7 +171,10 @@ struct config {
 	bool is_no_fuzz_packet;
 
 	bool is_no_fuzz_receive_packets_in_background;
+	/* only fuzz once */
 	bool is_fuzz_once;
+	/* fuzz without dependency */
+	bool is_fuzz_without_dependency;
 };
 
 /* Top-level info about the invocation of a test script */
