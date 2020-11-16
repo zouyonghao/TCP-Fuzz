@@ -31,14 +31,14 @@
 +0.1 write(3, ..., 4000) = 4000
 +0 close(3) = 0
 
-+0.1 ioctl(3, SIOCINQ, [0]) = 0
+// +0.1 ioctl(3, SIOCINQ, [0]) = 0
 
 // +0 fcntl(3, F_GETFL) = 2050
-+0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-+0 fcntl(3, F_SETFL, O_RDWR) = 0   // set back to blocking
+// +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+// +0 fcntl(3, F_SETFL, O_RDWR) = 0   // set back to blocking
 
-+0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
-+0 setsockopt(3, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
-+0 setsockopt(3, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
-+0 setsockopt(3, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
-+0 setsockopt(3, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// +0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+// +0 setsockopt(3, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
+// +0 setsockopt(3, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
+// +0 setsockopt(3, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
+// +0 setsockopt(3, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
