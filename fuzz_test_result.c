@@ -20,7 +20,7 @@ void reinit_fuzzing_results() {
 	fuzz_result_index = 0;
 	fuzz_result = malloc(30000);
 	memset(fuzz_result, 0, 30000);
-	
+
 	fuzz_results = malloc(1000 * sizeof(char *));
 	memset(fuzz_results, 0, 1000 * sizeof(char *));
 }
@@ -82,10 +82,8 @@ void add_syscall_result_to_fuzz_result(const char *syscall_name, int actual) {
 		return;
 	}
 
-	if (strcmp(syscall_name, "read") == 0 ||
-		strcmp(syscall_name, "write") == 0 ||
-		strcmp(syscall_name, "ioctl") == 0 ||
-		strcmp(syscall_name, "fcntl") == 0 ||
+	if (strcmp(syscall_name, "read") == 0 || strcmp(syscall_name, "write") == 0 ||
+		strcmp(syscall_name, "ioctl") == 0 || strcmp(syscall_name, "fcntl") == 0 ||
 		strcmp(syscall_name, "setsockopt") == 0) {
 		char actual_string[100];
 		sprintf(actual_string, "%s : %d\n", syscall_name, actual);

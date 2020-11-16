@@ -152,9 +152,7 @@ void fuzz_three_way_handshake_packets() {
 		printf("RST is sent if ts ecr is not zero in Linux but TLDK\n");
 		exit(0);
 	}
-	if (p->tcp_ts_ecr != NULL &&
-		p->tcp_ts_val != NULL &&
-		*(p->tcp_ts_ecr) == 0 &&
+	if (p->tcp_ts_ecr != NULL && p->tcp_ts_val != NULL && *(p->tcp_ts_ecr) == 0 &&
 		*(p->tcp_ts_val) == 0) {
 		/**
 		 * NOTE: packets have timestamp option 
@@ -242,7 +240,9 @@ void my_run_script() {
 
 		switch (event->type) {
 			case PACKET_EVENT:
-				if (event->event.packet->direction == DIRECTION_INBOUND && !config.is_no_fuzz_packet && !config.is_fuzz_once && !config.is_fuzz_without_dependency) {
+				if (event->event.packet->direction == DIRECTION_INBOUND &&
+					!config.is_no_fuzz_packet && !config.is_fuzz_once &&
+					!config.is_fuzz_without_dependency) {
 					fuzz_three_way_handshake_packets();
 				}
 				run_local_packet_event(state, event, event->event.packet);
@@ -253,8 +253,7 @@ void my_run_script() {
 				print_packet(event->event.packet);
 				break;
 			case SYSCALL_EVENT:
-				run_system_call_event(state, event,
-									  event->event.syscall);
+				run_system_call_event(state, event, event->event.syscall);
 				break;
 			case COMMAND_EVENT:
 			case CODE_EVENT:
@@ -519,8 +518,7 @@ int main(int argc, char *argv[]) {
 		printf("use fuzz_test_pkt_connect.pkt\n");
 		current_script_path = "./fuzz_test_pkt_connect.pkt";
 	}
-	if (parse_script_and_set_config(argc, argv, &config, &script,
-									current_script_path, NULL)) {
+	if (parse_script_and_set_config(argc, argv, &config, &script, current_script_path, NULL)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -573,7 +571,8 @@ int main(int argc, char *argv[]) {
 	my_run_script();
 
 	if (step1_last_received_ack != last_received_packet_ack_seq) {
-		printf("last received ack_seq different, step1 is %u, last is %u\n", ntohl(step1_last_received_ack), ntohl(last_received_packet_ack_seq));
+		printf("last received ack_seq different, step1 is %u, last is %u\n",
+			   ntohl(step1_last_received_ack), ntohl(last_received_packet_ack_seq));
 		print_scripts(MAX_LOOP_INDEX);
 		abort();
 	}
@@ -626,8 +625,7 @@ int main(int argc, char *argv[]) {
 	// 3. run another script
 	if (*arg != NULL) {
 		current_script_path = *arg;
-		if (parse_script_and_set_config(argc, argv, &config, &script,
-										current_script_path, NULL))
+		if (parse_script_and_set_config(argc, argv, &config, &script, current_script_path, NULL))
 			exit(EXIT_FAILURE);
 		checker = true;
 		run_script(&config, &script);

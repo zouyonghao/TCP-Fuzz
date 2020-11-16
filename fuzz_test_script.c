@@ -14,7 +14,7 @@ void reinit_fuzzing_scripts() {
 	fuzz_script = malloc(3000);
 	fuzz_script_index = 0;
 	memset(fuzz_script, 0, 3000);
-	
+
 	fuzz_scripts = malloc(1000 * sizeof(char *));
 	memset(fuzz_scripts, 0, 1000 * sizeof(char *));
 }

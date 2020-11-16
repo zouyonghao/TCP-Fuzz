@@ -19,23 +19,19 @@ bool is_validate_outbound_data_error = false;
 
 pthread_t tid;
 
-struct packet *fuzz_to_packet(bool is_fuzz_options,
-							  bool is_fuzz_data) {
+struct packet *fuzz_to_packet(bool is_fuzz_options, bool is_fuzz_data) {
 	int fuzz_data_capacity = 200;
 	int fuzz_data_size = 0;
 
-	u8 fixed_data[] = {
-			// IPv4
-			0x45, 0x00,
-			// IP length calculated later
-			0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			// ttl, protocol, checksum
-			0xff, 0x06, 0x00, 0x00,
+	u8 fixed_data[] = {// IPv4
+					   0x45, 0x00,
+					   // IP length calculated later
+					   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					   // ttl, protocol, checksum
+					   0xff, 0x06, 0x00, 0x00,
 
-			// 0.0.0.0
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00};
+					   // 0.0.0.0
+					   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 	u8 *data = (u8 *) malloc(fuzz_data_capacity * sizeof(u8));
 
@@ -247,7 +243,8 @@ struct packet *fuzz_to_packet(bool is_fuzz_options,
 	memcpy(packet->buffer, data, fuzz_data_size);
 	free(data);
 	char *error = NULL;
-	enum packet_parse_result_t result = parse_packet(packet, fuzz_data_size, PACKET_LAYER_3_IP, &error);
+	enum packet_parse_result_t result =
+			parse_packet(packet, fuzz_data_size, PACKET_LAYER_3_IP, &error);
 
 	checksum_packet(packet);
 
@@ -274,8 +271,7 @@ void *validate_outbound_packet(void *p) {
 	struct packet *packet = (struct packet *) p;
 	DEBUG_FUZZP("validate_outbound_packet\n");
 	int times = 0;
-	while (is_validate_outbound_running &&
-		   (max_times < 0 || times++ < max_times)) {
+	while (is_validate_outbound_running && (max_times < 0 || times++ < max_times)) {
 		struct packet *live_packet = NULL;
 		char *error = NULL;
 		int live_payload_len = 0;

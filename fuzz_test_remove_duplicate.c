@@ -7,12 +7,12 @@
 #include <unistd.h>
 
 void read_file_to_buffer(const char *filename, char **buffer) {
-    printf("read file: %s\n", filename);
+	printf("read file: %s\n", filename);
 	struct stat path_stat;
 	stat(filename, &path_stat);
 	if (!S_ISREG(path_stat.st_mode)) {
-        return;
-    }
+		return;
+	}
 	long length;
 	FILE *f = fopen(filename, "rb");
 	if (f) {
