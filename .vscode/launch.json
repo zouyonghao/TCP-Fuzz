@@ -98,7 +98,8 @@
                 "--remote_ip=192.0.0.2",
                 "--tun_id=0",
                 "--so_filename=1",
-                "--fuzz_file_name=./fuzz_test_input1",
+                "--fuzz_file_name=./fuzz_test_input",
+                "--fuzz_once",
                 "--tolerance_usecs=100000000"
             ],
             "stopAtEntry": false,

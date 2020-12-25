@@ -5,12 +5,16 @@
 +0  bind(3, ..., ...) = 0
 +0  listen(3, 1) = 0
 
-+0  < S 0:0(0) win 32792
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
 +0 ~ +1  > S. 0:0(0) ack 1 <...>
 
 +.1 < . 1:1(0) ack 1 win 32792
 +0  accept(3, ..., ...) = 4
 +0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
 
-+0 < . 1:513(512) ack 1 win 27510 <nop, eol, eol, eol>
-+0 > . 1:1(0) ack 513 <...>
++0 < . 1:8850(8849) ack 1 win 25205
++0 < RP. 8850:12479(3629) ack 1 win 25974
++0.1 read(4, ..., 29808) =  8849
++0.1 write(4, ..., 566) =  -1
+
++0.1 read(4, ..., 6293) =  0 // TLDK returns -1
