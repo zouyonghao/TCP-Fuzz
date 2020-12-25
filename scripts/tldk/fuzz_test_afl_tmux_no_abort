@@ -1,0 +1,13 @@
+tmux new-session \; \
+  split-window -h -p 50 \; \
+  send-keys 'sleep 10 && tail -f ./output/fuzzer*/plot-curve' C-m \; \
+  select-pane -t 0 \; \
+  send-keys './fuzz_test_afl_master1_no_abort.sh' C-m \; \
+  split-window -v -p 80 \; \
+  send-keys 'sleep 5 && ./fuzz_test_afl_slave2_no_abort.sh' C-m \; \
+  split-window -v -p 75 \; \
+  send-keys 'sleep 5 && ./fuzz_test_afl_slave3_no_abort.sh' C-m \; \
+  split-window -v -p 66 \; \
+  send-keys 'sleep 5 && ./fuzz_test_afl_slave4_no_abort.sh' C-m \; \
+  split-window -v -p 50 \; \
+  send-keys 'sleep 5 && ./fuzz_test_afl_slave5_no_abort.sh' C-m \;
