@@ -98,7 +98,7 @@ fuzz_test_gcc: $(fuzz_test-objs)
 fuzz_test_asan: $(fuzz_test-objs)
 	# gcc -c -g fuzz_test.c
 	clang -g -fsanitize=address $(fuzz_test-objs) \
-        $(packetdrill-ext-libs) \
+        $(TLDK_ROOT)/libtldk.so -lnuma -lrt -ldl \
         /bin/lib_exfunc.o \
             -o fuzz_test -lpthread -lpcap
 

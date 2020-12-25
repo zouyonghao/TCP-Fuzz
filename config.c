@@ -73,7 +73,8 @@ enum option_codes {
 	OPT_NO_FUZZ_PACKET,
 	OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND,
 	OPT_IS_FUZZ_ONCE,
-	OPT_IS_FUZZ_WITHOUT_DEPENDENCY
+	OPT_IS_FUZZ_WITHOUT_DEPENDENCY,
+	OPT_NO_ABORT_WHEN_ERROR_OCCUR
 };
 
 /* Specification of command line options for getopt_long(). */
@@ -117,6 +118,7 @@ struct option options[] = {
 	{ "no_fuzz_receive_packets_in_background",	.has_arg = false,  NULL, OPT_NO_FUZZ_RECEIVE_PACKETS_IN_BACKGROUND },
 	{ "fuzz_once",	.has_arg = false,  NULL, OPT_IS_FUZZ_ONCE },
 	{ "fuzz_without_dependency", .has_arg = false, NULL, OPT_IS_FUZZ_WITHOUT_DEPENDENCY},
+	{ "no_abort", .has_arg = false, NULL, OPT_NO_ABORT_WHEN_ERROR_OCCUR},
 	{ NULL },
 };
 
@@ -269,6 +271,7 @@ void set_default_config(struct config *config)
 	config->is_no_fuzz_receive_packets_in_background = false;
 	config->is_fuzz_once = false;
 	config->is_fuzz_without_dependency = false;
+	config->is_abort_when_error_occur = true;
 }
 
 static void set_remote_ip_and_prefix(struct config *config)
@@ -555,6 +558,9 @@ static void process_option(int opt, char *optarg, struct config *config,
 		break;
 	case OPT_IS_FUZZ_WITHOUT_DEPENDENCY:
 		config->is_fuzz_without_dependency = true;
+		break;
+	case OPT_NO_ABORT_WHEN_ERROR_OCCUR:
+		config->is_abort_when_error_occur = false;
 		break;
 	default:
 		show_usage();

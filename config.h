@@ -175,6 +175,8 @@ struct config {
 	bool is_fuzz_once;
 	/* fuzz without dependency */
 	bool is_fuzz_without_dependency;
+	/* abort when error occur, close when we test sanitizers */
+	bool is_abort_when_error_occur;
 };
 
 /* Top-level info about the invocation of a test script */

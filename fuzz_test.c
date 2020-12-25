@@ -502,6 +502,13 @@ void print_scripts(u32 max_index) {
 	fflush(stderr);
 }
 
+void error_occur(const char *reason) {
+	fprintf(stderr, "%s", reason);
+	if (config.is_abort_when_error_occur) {
+		abort();
+	}
+}
+
 int main(int argc, char *argv[]) {
 	init_in_main();
 	set_default_config(&config);
@@ -552,8 +559,7 @@ int main(int argc, char *argv[]) {
 	DEBUG_FUZZP("Step1 finished!\n");
 
 	if (read_result_validate_error) {
-		printf("read result validate error!\n");
-		abort();
+		error_occur("read result validate error!\n");
 	}
 
 	// 2. run without tldk
@@ -574,31 +580,31 @@ int main(int argc, char *argv[]) {
 		printf("last received ack_seq different, step1 is %u, last is %u\n",
 			   ntohl(step1_last_received_ack), ntohl(last_received_packet_ack_seq));
 		print_scripts(MAX_LOOP_INDEX);
-		abort();
+		error_occur("Different last ack.\n");
 	}
 
 	if (step1_last_received_ecr != last_received_packet_ecr) {
 		printf("last received ecr different!\n");
 		print_scripts(MAX_LOOP_INDEX);
-		abort();
+		error_occur("Different last ecr.\n");
 	}
 
 	if (step1_is_received_packet_has_timestamp != is_received_packet_has_timestamp) {
 		printf("One of your tests does not receive timestamp!\n");
 		print_scripts(MAX_LOOP_INDEX);
-		abort();
+		error_occur("No timestamp!\n");
 	}
 
 	if (read_result_validate_error) {
 		printf("read result validate error!\n");
 		print_scripts(MAX_LOOP_INDEX);
-		abort();
+		error_occur("read error!\n");
 	}
 
 	if (is_validate_outbound_data_error) {
 		printf("outbound packet data validate error");
 		print_scripts(MAX_LOOP_INDEX);
-		abort();
+		error_occur("outbound data error!\n");
 	}
 
 	int fuzz_test_compare_result = fuzz_test_result_compare(step1_results, fuzz_results);
@@ -618,7 +624,7 @@ int main(int argc, char *argv[]) {
 		}
 		print_scripts(fuzz_test_compare_result);
 		fflush(stdout);
-		abort();
+		error_occur("Fuzz compare error!\n");
 	}
 	// print_scripts(MAX_LOOP_INDEX);
 
