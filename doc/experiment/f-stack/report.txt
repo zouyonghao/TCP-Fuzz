@@ -3,7 +3,7 @@
     This is a Linux bug!
     Patch available
 
-2. 异常ack值导致read结果不同 - 3
+2. 异常ack值导致read结果不同 - 2
     f-stack-error2.pkt
     FreeBSD仅实现了部分RFC5961的内容
     https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=250357
@@ -30,7 +30,4 @@
 
 8. 发送不同长度、序号相同的包时，read内容错误 - 1
     f-stack-error8.pkt
-    在FreeBSD无法复现，应该是f-stack的问题
-
-9. read内容错误，暂时无法用packetdrill复现
-    f-stack-error9.pkt // ./output/fuzzer2/crash/000022-000022-1602339045706167
+    是f-stack的问题, UAF

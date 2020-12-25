@@ -1,0 +1,146 @@
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:696(695) ack 1 win 27510
+// inject fuzz error packet
+// set ip ihl to 0x09
++0 < . 696:7758(7062) ack 1 win 28217
++0.1 write(4, ..., 2159) =  2159
+
++0 fcntl(4, F_GETFL) = 2050
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
++0 < . 696:6043(5347) ack 1 win 12344
+// inject fuzz error packet
+// set ip ihl to 0x07
++0 < . 6043:12283(6240) ack 1 win 26465
++0.1 read(4, ..., 27209) =  12282
+
++0 < . 6043:11390(5347) ack 1 win 29029
+// inject fuzz error packet
+// set ip ihl to 0x03
+// set tcp seq to 0x37003435
++0 < . 892600375:892601925(1550) ack 1 win 30332
++0.1 write(4, ..., 1375) =  1375
+
++0 < . 11390:17856(6466) ack 1 win 26986
+
+// kind is 34, length is 23
+// kind is 1, length is 1
++0 < . 17856:27561(9705) ack 1 win 32886 <FO 2d71773833393534676a6e302d3139336e75762071,nop>
+// inject fuzz error packet
+// set ip ihl to 0x0e
+// set tcp seq to 0x30007138
++0 < . 946929712:946936455(6743) ack 1 win 27016
++0.1 read(4, ..., 27576) =  15278
++0.1 write(4, ..., 1901) =  1901
+
++0 < . 27561:28082(521) ack 1 win 13157
+// inject fuzz error packet
+// kind is 1, length is 1
+// set ip ihl to 0x07
+// set tcp ack seq to 0x30002d31
++0 < . 28082:35291(7209) ack 825032752 win 30330 <nop,eol,eol,eol>
+
++0 < . 28082:29896(1814) ack 1 win 29038
+// inject fuzz error packet
+// set ip ihl to 0x08
+// set tcp seq to 0x7100756e
++0 < . 1853161585:1853168453(6868) ack 1 win 30326
++0.1 read(4, ..., 18566) = 2335
++0.1 write(4, ..., 302) =  302
+
+// kind is 1, length is 1
+// kind is 3, length is 3
++0 < . 29896:39833(9937) ack 1 win 30520 <nop,wscale 101>
+// inject fuzz dup packets
+// kind is 0, length is 1
++0 < . 39833:49098(9265) ack 1 win 45328 <eol,eol,eol,eol>
+// kind is 0, length is 1
++0 < . 39833:41383(1550) ack 1 win 30070 <eol,eol,eol,eol>
++0 < . 39833:47264(7431) ack 1 win 13156
+// kind is 3, length is 3
+// kind is 8, length is 10
+// kind is 3, length is 3
++0 < . 39833:40112(279) ack 1 win 25143 <wscale 138,TS val 1768862129 ecr 2981193373,wscale 106>
+
++0 < . 39833:47490(7657) ack 1 win 28535
+// inject fuzz error packet
+// set ip ihl to 0x07
+// set tcp ack seq to 0x7f00302d
++0 < . 47490:52123(4633) ack 758120575 win 14643
++0.1 read(4, ..., 6293) =  6293
++0.1 write(4, ..., 575) =  575
+
++0 < . 47490:54551(7061) ack 1 win 32569
+// inject fuzz error packet
+// set ip ihl to 0x00
+// +0 < . 54551:63335(8784) ack 1 win 12401
++0.1 read(4, ..., 28704) =  18362
++0.1 write(4, ..., 510) =  510
+
++0 < . 54551:63255(8704) ack 1 win 12336
++0.1 read(4, ..., 20) =  20
++0 < . 54551:63255(8704) ack 1 win 12336
++0.1 read(4, ..., 20) =  20
++0 < . 54551:61484(6933) ack 1 win 12336
++0.1 read(4, ..., 20) =  20
+
++1  > . 1:1(0) ack 696 <...>
++1  > . 1:1(0) ack 7758 <...>
++1  > . 1:2160(2159) ack 7758 <...>
++1  > . 2160:2160(0) ack 7758 <...>
++1  > . 2160:2160(0) ack 12283 <...>
++1  > . 2160:3535(1375) ack 12283 <...>
++1  > . 3535:3535(0) ack 17856 <...>
++1  > . 3535:3535(0) ack 27561 <...>
++1  > . 3535:3535(0) ack 27561 <...>
++1  > . 3535:5436(1901) ack 27561 <...>
++1  > . 5436:5436(0) ack 28082 <...>
++1  > . 5436:5436(0) ack 29896 <...>
++1  > . 1:537(536) ack 29896 <...>
++1  > . 537:1073(536) ack 29896 <...>
++1  > . 1073:1609(536) ack 39833 <...>
++1  > . 1609:2049(440) ack 49098 <...>
++1  > . 2049:2160(111) ack 49098 <...>
+
++1  > . 2160:2160(0) ack 49098 <...>
+
++1  > . 2160:2696(536) ack 49098 <...>
++1  > . 2696:2696(0) ack 49098 <...>
+
++1  > . 2696:3232(536) ack 49098 <...>
++1  > . 3232:3232(0) ack 49098 <...>
++1  > . 3232:3535(303) ack 49098 <...>
+
++1  > . 3535:4071(536) ack 49098 <...>
++1  > . 4071:4607(536) ack 54551 <...>
++1  > . 4607:5143(536) ack 54551 <...>
+
++1  > . 5143:5738(595) ack 63255 <...>
++1  > . 5738:5738(0) ack 63255 <...>
++1  > . 5738:6274(536) ack 63255 <...>
+
++1  > . 1:537(536) ack 63255 <...>
+
++0 close(4) = 0
+
++0 < . 63255:63256(1) ack 1 win 28407
++1  > . 537:1073(536) ack 63255 <...>
+
++1  > . 1073:1609(536) ack 63256 <...>
+
++0.1 read(4, ..., 21488) =  -1
++0.1 write(4, ..., 1495) =  -1

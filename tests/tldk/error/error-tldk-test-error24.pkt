@@ -1,0 +1,61 @@
+// DO NOT delete or add line in this file
+
+// Establish a connection.
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792 <mss 1000,sackOK,TS val 0 ecr 0,nop,wscale 7>
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 < . 1:3758(3757) ack 1 win 30330 
++0.1 read(4, ..., 28864) =  3757
++0.1 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
+// kind is 254, length is 17
+// set ip ihl to 0x0e
+// unknown experimental option
++0 < . 3758:12580(8822) ack 1 win 2671 
++0.1 read(4, ..., 28704) =  8822
++0.1 write(4, ..., 1704) =  1704
++0.1 ioctl(4, SIOCINQ, [0]) = 0
++0 fcntl(4, F_GETFL) = 2050
++0 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++0 setsockopt(4, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0 setsockopt(4, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPIDLE, [5], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPINTVL, [2], 4) = 0
++0 setsockopt(4, IPPROTO_TCP, TCP_KEEPCNT, [2], 4) = 0
++0 < . 12580:15241(2661) ack 1 win 10800 
+// inject fuzz error packet
+// set ip checksum to 0x0000
+// set tcp flags to 0xb1
++0 < F. 15241:17962(2721) ack 1 win 17329 
+
++0.3 read(4, ..., 3333) =  2661
+
+// 需要配合以下patch测试
+// diff --git a/run.c b/run.c
+// index 0d03980..953c581 100644
+// --- a/run.c
+// +++ b/run.c
+// @@ -630,6 +630,9 @@ void run_script(struct config *config, struct script *script)
+//                 case PACKET_EVENT:
+//                         /* For wire clients, the server handles packets. */
+//                         if (!config->is_wire_client) {
+// +                               if (event->line_number == 43) {
+// +                                       ((char *) event->event.packet->tcp)[13] = 0xb1u;
+// +                               }
+//                                 run_local_packet_event(state, event,
+//                                                                            event->event.packet);
+//                         }

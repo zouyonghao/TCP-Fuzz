@@ -1,0 +1,34 @@
+0   socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++0  setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+
++0  bind(3, ..., ...) = 0
++0  listen(3, 1) = 0
+
++0  < S 0:0(0) win 32792
++0 ~ +1  > S. 0:0(0) ack 1 <...>
+
++.1 < . 1:1(0) ack 1 win 32792
++0.2 accept(3, ..., ...) = 4
++0.1 fcntl(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+
++0 close(4) = 0
+
++0.1 ioctl(4, SIOCINQ, [0]) = 0
+
+// 配合以下packetdrill patch使用
+// diff --git a/run_system_call.c b/run_system_call.c
+// index 62f77e8..e599ac2 100644
+// --- a/run_system_call.c
+// +++ b/run_system_call.c
+// @@ -1180,7 +1180,10 @@ static struct fd_state *find_by_script_fd(
+//         struct fd_state *fd = NULL;
+//  
+//         for (fd = state->fds; fd != NULL; fd = fd->next)
+// -               if (!fd->is_closed && (fd->script_fd == script_fd)) {
+// +               if ((fd->script_fd == script_fd)) {
+// +                       if (fd->is_closed) {
+// +                               printf("fd %d is closed, but we currently ignore it\n", script_fd);
+// +                       }
+//                         assert(fd->live_fd >= 0);
+//                         assert(fd->script_fd >= 0);
+//                         return fd;

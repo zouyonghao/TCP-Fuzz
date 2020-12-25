@@ -14,14 +14,14 @@
     error-mtcp-error4.pkt
     已修复：如果长度为0则返回0
 
-5. 握手包中没有timestamp时，返回的包中有timestamp
+5. 握手包中没有timestamp时，返回的包中有timestamp - 2
     error-mtcp-error5.pkt
     已修复
 
 6. 未检查ack值是否合法 - 1
     error-mtcp-error6.pkt
 
-7. syn_ack之后的ack包的ts值不生效
+7. syn_ack之后的ack包的ts值不生效 - 2
     error-mtcp-error7.pkt
     已修复
 
@@ -29,7 +29,7 @@
     error-mtcp-error8.pkt
     已修复
 
-9. read 0返回值错误
+9. read 0返回值错误 - 2
     error-mtcp-error9.pkt
     已修复
 
@@ -40,5 +40,5 @@
 11. 发送Fin包后又收到相同序号的正常包时，处理结果与Linux不同 - 1
     error-mtcp-error11.pkt
 
-12. syn ack 包的ecr为随机值时, Linux发送RST报文 - 3
+12. syn ack 包的ecr为随机值时, Linux发送RST报文 - 2
     error-mtcp-error12.pkt 运行此脚本需要注释掉 run_packet.c 558~561 使生成的ts ecr错误

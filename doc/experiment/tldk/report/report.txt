@@ -10,7 +10,7 @@
     error-tldk-read-return-value-delay.pkt ioctl-siocinq-fin.pkt
     fix patch: fix_ioctl.patch
 
-4. ioctl 在listen之后使用socket返回的文件描述符,返回值应为-1, 而tldk为0. - 3
+4. ioctl 在listen之后使用socket返回的文件描述符,返回值应为-1, 而tldk为0. - 2
     error-tldk-ioctl-return-value.pkt
     fix patch: fix_ioctl2.patch
 
@@ -38,12 +38,12 @@
     error-tldk-write-return-value2.pkt
     已修复
 
-11. RST包序号问题导致write错误 - 3
-    [RFC 5691](https://tools.ietf.org/html/rfc5961https://tools.ietf.org/html/rfc5961)
+11. RST包序号问题导致write错误 - 2
+    [RFC 5961](https://tools.ietf.org/html/rfc5961)
     error-tldk-test-error11.pkt
     已修复
 
-12. ACK包序号问题导致ioctl结果不同 [RFC 5691] - 3
+12. ACK包序号问题导致ioctl结果不同 [RFC 5961] - 2
     error-tldk-test-error12.pkt
     已修复
 
@@ -55,7 +55,7 @@
     error-tldk-test-error14.pkt
     已修复
 
-15. syn ack 包的ecr不为0仍能接受连接, Linux发送RST报文 - 3
+15*. syn ack 包的ecr不为0仍能接受连接, Linux发送RST报文 - 3
     error-tldk-test-error15.pkt
     需要看标准判断是否修复
 
@@ -76,6 +76,25 @@
 20. 如果包中含有两个timestamp选项，结果与Linux不同 - 3
     error-tldk-test-error20.pkt
 
-21. read返回值错误
+21. 连接关闭后read 0返回值错误
     error-tldk-test-error21.pkt
     已修复
+
+22. close之后乱序Fin包导致程序崩溃 - 1
+    close-with-out-of-order-finack.pkt
+
+23. 非法wscale值导致包无法接收
+    error-tldk-test-error23.pkt
+
+24. urgent point不支持
+    error-tldk-test-error24.pkt
+
+25. ioctl在close之后返回值不同
+    error-tldk-test-error25.pkt
+
+26. 数据未读完时close, Linux发送RST报文
+    error-tldk-test-error26.pkt
+
+27.* Fin包前后包顺序不同导致write结果不同
+    error-tldk-test-error22.pkt
+    RFC未规定，两者都可以
