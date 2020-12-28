@@ -98,14 +98,15 @@
                 "--remote_ip=192.0.0.2",
                 "--tun_id=0",
                 "--so_filename=1",
-                "--fuzz_file_name=./fuzz_test_input",
-                "--fuzz_once",
+                "--fuzz_file_name=./fuzz_test_input4",
+                // "--fuzz_once",
                 "--tolerance_usecs=100000000"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/scripts/mtcp",
             "environment": [
                 // {"name":"LD_PRELOAD", "value":"/usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so"}
+                {"name" : "ASAN_SYMBOLIZER_PATH", "value":"/usr/lib/llvm-6.0/bin/llvm-symbolizer"}
             ],
             "externalConsole": false,
             "MIMode": "gdb",
