@@ -42,3 +42,11 @@
 
 12. syn ack 包的ecr为随机值时, Linux发送RST报文 - 2
     error-mtcp-error12.pkt 运行此脚本需要注释掉 run_packet.c 558~561 使生成的ts ecr错误
+
+13. TCP listener UAF - 1
+    ASAN检测出的Bug，未导出packetdrill脚本
+    tcp_fuzzer/scripts/mtcp/error/error_fuzz_test_script/error13
+
+14. TCP在ip包的ihl不合法时会heap-buffer-overflow，但其实未使用 - 3
+    ASAN检测出的Bug，未导出packetdrill脚本
+    tcp_fuzzer/scripts/mtcp/error/error_fuzz_test_script/error14
