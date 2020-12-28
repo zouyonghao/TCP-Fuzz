@@ -413,7 +413,7 @@ int find_tcp_timestamp(struct packet *packet, char **error)
 				(void *)&(option->data.time_stamp.ecr);
 		}
 	if (*error) {
-		printf("error happened but ignored! %s\n", *error);
+		printf("error happened in find_tcp_timestamp but ignored!\n%s\n", *error);
 	}
 	// return *error ? STATUS_ERR : STATUS_OK;
 	return STATUS_OK;

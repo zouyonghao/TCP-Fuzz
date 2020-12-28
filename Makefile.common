@@ -102,6 +102,14 @@ fuzz_test_asan: $(fuzz_test-objs)
         /bin/lib_exfunc.o \
             -o fuzz_test -lpthread -lpcap
 
+fuzz_test_asan_mtcp: $(fuzz_test-objs)
+	# gcc -c -g fuzz_test.c
+	clang -g -fsanitize=address $(fuzz_test-objs) \
+        -lnuma -lrt -ldl \
+        /bin/lib_exfunc.o \
+        -o fuzz_test -L$(MTCP_ROOT) -Wl,--whole-archive \
+		${LIBS} -lmtcp -Wl,--no-whole-archive -lnuma -lpthread -ldl -lrt -lpcap -lgmp 
+
 fuzz_test_ubsan: $(fuzz_test-objs)
 	# gcc -c -g fuzz_test.c
 	clang-9 -g -fsanitize=undefined $(fuzz_test-objs) \
