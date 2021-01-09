@@ -67,5 +67,13 @@
     上下文敏感的分支覆盖
         目前的分支数组为定长数组，后续可以改为上下文敏感的分支覆盖（加入调用栈因素）
 
-- [ ] Asan 实验
-- [ ] 统计 bug 数目
+- [x] Asan 实验
+- [x] 统计 bug 数目
+
+- [x] 统计 bug root cause
+- [x] 统计 bug fix effort
+
+- [x] 具体的RFC违反
+- [ ] 做图表
+        coverage 两个
+        bug 统计图 柱状图分为 semantic 和 memory
