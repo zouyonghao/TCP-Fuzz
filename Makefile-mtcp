@@ -5,7 +5,7 @@ MTCP_ROOT=/home/zyh/Desktop/mtcp/mtcp/lib
 # LIBS=$(shell cat ${DPDK_MACHINE_LINKER_FLAGS})
 # DPDK_MACHINE_LDFLAGS=-ldpdk
 
-DPDK_LIBS_PATH := /home/zyh/Desktop/tldk-2/dpdk/install/lib
+DPDK_LIBS_PATH := /home/zyh/Desktop/tldk/dpdk/install/lib
 $(eval LIBS = $(wildcard $(DPDK_LIBS_PATH)/librte*.a))
 packetdrill-ext-libs := -static -L$(MTCP_ROOT) -Wl,--whole-archive \
 						${LIBS} -lmtcp -Wl,--no-whole-archive -lnuma -lpthread -ldl -lrt -lpcap -lgmp 

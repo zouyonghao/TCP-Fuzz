@@ -74,6 +74,12 @@
 - [x] 统计 bug fix effort
 
 - [x] 具体的RFC违反
-- [ ] 做图表
+- [?] 做图表
         coverage 两个
         bug 统计图 柱状图分为 semantic 和 memory
+
+- [ ] 跑太慢的问题
+
+- [ ] kernel 覆盖率实验
+- [ ] 与Filesystem论文对比
+        使用 code coverage，去掉dep, 使用它的贪心算法
