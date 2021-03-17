@@ -37,9 +37,9 @@ u8 read_byte() {
 
 u32 read_int() {
 	u32 result = read_byte();
-	result <<= 24u;
+	result <<= 8u;
 	result |= read_byte();
-	result <<= 16u;
+	result <<= 8u;
 	result |= read_byte();
 	result <<= 8u;
 	result |= read_byte();

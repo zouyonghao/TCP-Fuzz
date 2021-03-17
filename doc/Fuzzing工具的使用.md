@@ -10,7 +10,7 @@
 
 - 编译和插桩工具，负责对待测程序进行编译和插桩，使Fuzzer可以检测到覆盖率
   
-	此工具为`state_monitor_compiler`、`state_monitor_instrument`和`branch_clear`，以及一个配置文件，`config.json`。我们也提供了二进制程序， 使用时拷贝到`/bin`目录下。
+	此工具为`state_monitor_compiler`、`state_monitor_instrument`、`branch_clear`和`lib_exfunc.o`，以及一个配置文件，`config.json`。我们也提供了二进制程序， 使用时拷贝到`/bin`目录下。
 
 - 包和syscall生成工具，负责把Fuzzing文件"翻译"为包和syscall序列
 
