@@ -83,3 +83,5 @@
 - [ ] kernel 覆盖率实验
 - [ ] 与Filesystem论文对比
         使用 code coverage，去掉dep, 使用它的贪心算法
+
+Anyway, implementing complete kernel-level TCP fuzzing, testing congestion control and testing QUIC can be three important extensions of our paper
