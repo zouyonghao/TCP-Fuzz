@@ -31,3 +31,4 @@
 8. 发送不同长度、序号相同的包时，read内容错误 - 1
     f-stack-error8.pkt
     是f-stack的问题, UAF
+    https://github.com/F-Stack/f-stack/pull/565
