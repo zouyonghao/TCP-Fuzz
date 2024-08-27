@@ -1,5 +1,8 @@
+TCP-Fuzz
 
-packetdrill
+https://www.usenix.org/conference/atc21/presentation/zou
+
+TCP-Fuzz is based on packetdrill
 ===========
 
 This directory contains the source code for the packetdrill network
