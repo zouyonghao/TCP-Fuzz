@@ -63,6 +63,7 @@ static int syscall_icmp_sendto(struct state *state,
 			       struct syscall_spec *syscall,
 			       struct expression_list *args, char **error);
 
+#if !defined(_GNU_SOURCE) || !defined(__GLIBC__) || __GLIBC__ < 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ < 30)
 /* Provide a wrapper for the Linux gettid() system call (glibc does not). */
 static pid_t gettid(void)
 {
@@ -74,6 +75,8 @@ static pid_t gettid(void)
 	return 0;
 #endif /* defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)*/
 }
+#endif
+
 
 /* Read a whole file into the given buffer of the given length. */
 static void read_whole_file(const char *path, char *buffer, int max_bytes)
