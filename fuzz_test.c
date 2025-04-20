@@ -97,7 +97,9 @@ void do_some_fuzz(int fuzz_loop) {
 
 			if (record_coverage) {
 				usleep(10000);
+				#ifndef NO_EXFUNC
 				UpdateCoverage();
+				#endif
 			}
 			// PrintCoverage();
 		}
@@ -113,11 +115,13 @@ void do_some_fuzz(int fuzz_loop) {
 					update_state_and_event(predefined_syscall_events[j].e);
 					predefined_syscall_events[j].run_fuzz_syscall_func();
 					state->num_events++;
+					#ifndef NO_EXFUNC
 					if (record_coverage) {
 						usleep(10000);
 						UpdateCoverage();
 					}
 					// PrintCoverage();
+					#endif
 					update_fuzz_scripts();
 					update_fuzz_results();
 				}
@@ -177,8 +181,10 @@ void print_packet(struct packet *p) {
 void my_run_script() {
 
 	if (record_coverage) {
+		#ifndef NO_EXFUNC
 		ClearArray();
 		PrintCoverage();
+		#endif
 	}
 
 	reinit_fuzzing_variable();
@@ -327,8 +333,10 @@ void my_run_script() {
 	run_system_call_event(state, syscall_close_event, syscall_close_event->event.syscall);
 	state->num_events++;
 	add_content_to_fuzz_script("+0 close(4) = 0\n");
+	#ifndef NO_EXFUNC
 	// UpdateCoverage();
 	PrintCoverage();
+	#endif
 
 	update_fuzz_scripts();
 	update_fuzz_results();
@@ -510,7 +518,9 @@ void error_occur(const char *reason) {
 }
 
 int main(int argc, char *argv[]) {
+	#ifndef NO_EXFUNC
 	init_in_main();
+	#endif
 	set_default_config(&config);
 	/* Get command line options and list of test scripts. */
 	char **arg = parse_command_line_options(argc, argv, &config);

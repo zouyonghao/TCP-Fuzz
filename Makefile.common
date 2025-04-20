@@ -32,12 +32,15 @@ packetdrill-lib := \
          link_layer.o wire_conn.o wire_protocol.o \
          wire_client.o wire_client_netdev.o \
          wire_server.o wire_server_netdev.o \
-	 epoll.o pipe.o file.o so_testing.o wrap.o fuzz_test_result.o 
+         epoll.o pipe.o file.o so_testing.o wrap.o fuzz_test_result.o 
 
 packetdrill-objs := packetdrill.o $(packetdrill-lib)
 
 packetdrill: $(packetdrill-objs)
 	$(CC) -o packetdrill -g /bin/lib_exfunc.o $(packetdrill-objs) $(packetdrill-ext-libs) 
+
+packetdrill_no_exfunc: $(packetdrill-objs)
+	$(CC) -o packetdrill -g $(packetdrill-objs) $(packetdrill-ext-libs) 
 
 packetdrill_asan: $(packetdrill-objs)
 	clang-9 -g -fsanitize=address $(packetdrill-lib) packetdrill.o \
@@ -72,6 +75,11 @@ fuzz_test-objs := fuzz_test_syscall.o fuzz_test_helper.o fuzz_test_script.o fuzz
 fuzz_test: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
 	$(CC) -o fuzz_test -g $(fuzz_test-objs) \
             /bin/lib_exfunc.o \
+            $(packetdrill-ext-libs)
+
+fuzz_test_no_exfunc: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
+	$(CC) -DNO_EXFUNC -o fuzz_test.o -c fuzz_test.c
+	$(CC) -DNO_EXFUNC -o fuzz_test -g $(fuzz_test-objs) \
             $(packetdrill-ext-libs)
 
 fuzz_test_debug: $(fuzz_test-objs)

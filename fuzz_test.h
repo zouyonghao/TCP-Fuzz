@@ -37,12 +37,13 @@ struct predefined_syscall_event {
 	struct event *e;
 };
 
-
+#ifndef NO_EXFUNC
 extern void init_in_main(void);
 extern void start_forkserver(void);
 extern void PrintCoverage(void);
 extern void UpdateCoverage(void);
 extern void ClearArray(void);
+#endif
 
 void update_state_and_event(struct event *new_event);
 void inject_fuzz_normal_packet();
