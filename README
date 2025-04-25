@@ -20,7 +20,7 @@ docker run --privileged \
             --network=host \
             -it ubuntu:18.04
 
-sudo apt install build-essential bison flex libpcap-dev libnuma-dev
+apt install build-essential bison flex libpcap-dev libnuma-dev
 
 # Compile TLDK
 
