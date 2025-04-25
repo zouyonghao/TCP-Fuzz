@@ -3,3 +3,37 @@ TCP-Fuzz: Detecting Memory and Semantic Bugs in TCP Stacks with Fuzzing
 https://www.usenix.org/conference/atc21/presentation/zou
 
 TCP-Fuzz is based on packetdrill
+
+Run a blackbox fuzzing test
+--------------------------------------------------------------------------
+
+# (Optional) Use docker
+
+docker run --privileged \
+            --cap-add=ALL \
+            -v /sys/bus/pci/devices:/sys/bus/pci/devices \
+            -v /sys/kernel/mm/hugepages:/sys/kernel/mm/hugepages \
+            -v /sys/devices/system/node:/sys/devices/system/node \
+            -v /dev:/dev \
+            -v /home/$USER:/home/$USER \
+            --name tcp-fuzz \
+            --network=host \
+            -it ubuntu:18.04
+
+# Compile TLDK
+
+Use the TLDK here https://github.com/zouyonghao/tldk.
+
+You need to change the DPDK source location for easy compilation: https://github.com/zouyonghao/tldk/blob/216865216573bf856174dd62bfdf683a8c4b1feb/dpdk/Makefile#L226.
+
+make PACKETDRILL=y EXTRA_CFLAGS="-g -O0 -fPIC -march=native -DLOOK_ASIDE_BACKEND " all
+
+# Compile TCP-Fuzz
+
+make clean && make fuzz_test_no_exfunc && make packetdrill_no_exfunc
+
+You need to change the TLDK_ROOT accordingly in the Makefile.
+
+# Run blackbox fuzzing test
+
+cd scripts/tldk && ./blackbox_test.sh
