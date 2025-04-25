@@ -1,6 +1,6 @@
 all: binaries
 
-CFLAGS += -g -Wall -O0
+CFLAGS += -g -Wall -O0 -fPIC
 
 parser.o: parser.y
 	bison --output=parser.c --defines=parser.h --report=state parser.y
@@ -79,7 +79,7 @@ fuzz_test: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
 
 fuzz_test_no_exfunc: $(fuzz_test-objs) fuzz_test.h fuzz_test_header.h fuzz_test_syscall.h
 	$(CC) -DNO_EXFUNC -o fuzz_test.o -c fuzz_test.c
-	$(CC) -DNO_EXFUNC -o fuzz_test -g $(fuzz_test-objs) \
+	$(CC) -fuse-ld=gold -DNO_EXFUNC -o fuzz_test -g $(fuzz_test-objs) \
             $(packetdrill-ext-libs)
 
 fuzz_test_debug: $(fuzz_test-objs)
@@ -131,7 +131,7 @@ fuzz_test_normal: $(fuzz_test-objs)
 
 packet_to_string_test-objs := $(packetdrill-lib) packet_to_string_test.o
 packet_to_string_test: $(packet_to_string_test-objs)
-	$(CC) -o packet_to_string_test $(packet_to_string_test-objs) \
+	$(CC) -fuse-ld=gold -o packet_to_string_test $(packet_to_string_test-objs) \
                 $(packetdrill-ext-libs)
 
 clean:
