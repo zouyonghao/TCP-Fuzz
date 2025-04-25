@@ -20,6 +20,8 @@ docker run --privileged \
             --network=host \
             -it ubuntu:18.04
 
+sudo apt install build-essential bison flex libpcap-dev libnuma-dev
+
 # Compile TLDK
 
 Use the TLDK here https://github.com/zouyonghao/tldk.
@@ -35,5 +37,7 @@ make clean && make fuzz_test_no_exfunc && make packetdrill_no_exfunc
 You need to change the TLDK_ROOT accordingly in the Makefile.
 
 # Run blackbox fuzzing test
+
+echo 512 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
 
 cd scripts/tldk && ./blackbox_test.sh
