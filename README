@@ -41,3 +41,7 @@ You need to change the TLDK_ROOT accordingly in the Makefile.
 echo 512 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
 
 cd scripts/tldk && ./blackbox_test.sh
+
+# mTCP
+
+The mTCP branch we tested is https://github.com/zouyonghao/mtcp/tree/packetdrill.
